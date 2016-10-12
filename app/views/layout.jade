@@ -1,10 +1,12 @@
 doctype html
 html
   head
-    title= title
+    block title
     link(rel='stylesheet', href='./css/lib/bootstrap-3.3.7.min.css')
     link(rel='stylesheet', href='./css/style.css')
+    block css
   body
     include header
     block content
     include footer
+    block script
