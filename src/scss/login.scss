@@ -1,0 +1,19 @@
+html {
+  position: relative;
+  min-height: 100%;
+
+  body {
+    margin-bottom: 50px;
+
+    #form-login {
+      margin: 0 auto;
+      max-width: 30em;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+}

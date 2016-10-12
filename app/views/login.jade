@@ -1,0 +1,19 @@
+extends layout
+
+block title
+  title ログイン
+
+block css
+  link(rel='stylesheet', href='./css/login.css')
+
+block content
+  .container
+    form#form-login
+      h2 ログイン認証
+      input#inputID.form-control(type='text', placeholder='ユーザーID', required='', autofocus='')
+      input#inputPassword.form-control(type='password', placeholder='パスワード', required='')
+      button.btn.btn-lg.btn-primary.btn-block(type='submit') ログイン
+
+block script
+  script(src='./js/lib/jquery-2.2.4.min.js')
+  script(src="./js/login.js")
