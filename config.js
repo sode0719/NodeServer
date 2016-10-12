@@ -1,4 +1,4 @@
 module.exports = {
   'secret': 'oauthServerSampleSecret',
-  'database': 'mongodb://oauth:oauthpass@localhost/server_oauth'
+  'database': 'mongodb://sports:sportspass@localhost/sports_team'
 }

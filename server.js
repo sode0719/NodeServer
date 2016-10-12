@@ -29,8 +29,7 @@ var white   = '\u001b[37m';
 
 var reset   = '\u001b[0m';
 
-console.log(red + 'This text is red. ' + green + 'Greeeeeeen!' + reset);
-
+//console.log(red + 'This text is red. ' + green + 'Greeeeeeen!' + reset);
 
 // =======================
 // コンフィグ
@@ -86,7 +85,7 @@ apiRoutes.post('/authenticate', function(req, res) {
 
   // find db by posted name
   User.findOne({
-    name: req.body.name
+    id: req.body.id
   }, function(err, user) {
     if (err) throw err;
 

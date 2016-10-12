@@ -1,16 +1,16 @@
 $(function() {
   $("#post").on('click', function () {
-    login($("#name").val(), $("#password").val());
+    login($("#id").val(), $("#password").val());
   });
 });
 
-function login(name, pass) {
+function login(id, pass) {
   $.ajax({
       url: "./api/authenticate",
       type:'POST',
       dataType: 'json',
       data: {
-        name : name,
+        id : id,
         password : pass
       }
   })
