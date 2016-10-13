@@ -1,6 +1,6 @@
 header.navbar.navbar-inverse.navbar-fixed-top
   .container
-    a.navbar-brand.text-muted(href='#') 少年団支援システム
+    a.navbar-brand.text-muted(href='./') 少年団支援システム
     ul.nav.navbar-nav.navbar-right
       li#timeline
         a(href='#') タイムライン
@@ -10,5 +10,9 @@ header.navbar.navbar-inverse.navbar-fixed-top
         a(href='#') 配車
       li#score
         a(href='#') スコア
-      li#login
-        a(href='#') ログイン
+      if login
+        li#login
+          a(href='./logout') ログアウト
+      else
+        li#login
+          a(href='./login') ログイン

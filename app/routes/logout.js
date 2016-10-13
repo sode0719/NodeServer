@@ -3,7 +3,8 @@ var router  = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('login', { title: 'ログイン', login: false});
+  req.session.destroy();
+  res.render('logout', { title: 'ログアウト', login: false});
 });
 
 module.exports = router;

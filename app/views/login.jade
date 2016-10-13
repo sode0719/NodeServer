@@ -8,11 +8,17 @@ block css
 
 block content
   .container
-    form#form-login
+    #login-wrapper
       h2 ログイン認証
-      input#inputID.form-control(type='text', placeholder='ユーザーID', required='', autofocus='')
-      input#inputPassword.form-control(type='password', placeholder='パスワード', required='')
-      button.btn.btn-lg.btn-primary.btn-block(type='submit') ログイン
+      form.form-group
+        label ユーザー名
+        input.form-control#js-user-id(type='text', placeholder='ユーザーID', required='', autofocus='')
+      .form-group
+        label  パスワード
+        input.form-control#js-user-password(type='password', placeholder='パスワード', required='')
+      button.btn.btn-lg.btn-primary.btn-block#js-submit(type='submit') ログイン
+      #login-result
+
 
 block script
   script(src='./js/lib/jquery-2.2.4.min.js')
