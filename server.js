@@ -78,6 +78,8 @@ var setup = require('./app/routes/login');
 app.use('/login', setup);
 var setup = require('./app/routes/logout');
 app.use('/logout', setup);
+var setup = require('./app/routes/calendar');
+app.use('/calendar', setup);
 
 // =======================
 // APIルーティング

@@ -1,0 +1,19 @@
+extends layout
+
+block title
+  title= title
+
+block css
+  link(rel='stylesheet', href='./css/lib/fullcalendar-3.0.1.min.css')
+  link(rel='stylesheet', href='./css/calendar.css')
+
+block content
+  .container
+    #js-calendar
+
+block script
+  script(src='./js/lib/jquery-2.2.4.min.js')
+  script(src='./js/lib/moment-2.15.1.min.js')
+  script(src="./js/lib/fullcalendar-3.0.1/fullcalendar.min.js")
+  script(src="./js/lib/fullcalendar-3.0.1/ja.js")
+  script(src="./js/calendar.js")
