@@ -5,15 +5,45 @@ block title
 
 block css
   link(rel='stylesheet', href='./css/lib/fullcalendar-3.0.1.min.css')
+  link(rel='stylesheet', href='./css/lib/bootstrap-datepicker.css')
   link(rel='stylesheet', href='./css/calendar.css')
 
 block content
   .container
-    #js-calendar
+    if login
+      #js-calendar
+
+      // Modal
+      #js-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+              h4#myModalLabel.modal-title スケジュール
+            .modal-body
+              .form-group
+                label タイトル
+                input.form-control#js-title(type='text', placeholder='タイトル', required='')
+              .form-group
+                label 開始日
+                input.form-control.datepicker#js-datepicker-start(type='text')
+              .form-group
+                label 終了日
+                input.form-control.datepicker#js-datepicker-end(type='text')
+            .modal-footer
+              button.btn.btn-secondary.pull-left(type='button', data-dismiss='modal') キャンセル
+              button.btn.btn-primary#js-submit(type='button', data-dismiss='modal') 登録
+    else
+      .alert.alert-danger ログインしてください
 
 block script
   script(src='./js/lib/jquery-2.2.4.min.js')
   script(src='./js/lib/moment-2.15.1.min.js')
   script(src="./js/lib/fullcalendar-3.0.1/fullcalendar.min.js")
   script(src="./js/lib/fullcalendar-3.0.1/ja.js")
-  script(src="./js/calendar.js")
+  script(src="./js/lib/bootstrap-3.3.7.min.js")
+  if login
+    script(src="./js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js")
+    script(src="./js/lib/bootstrap-datepicker/bootstrap-datepicker.ja.min.js")
+    script(src="./js/calendar.js")

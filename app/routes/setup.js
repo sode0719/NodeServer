@@ -3,6 +3,7 @@ var router   = express.Router();
 
 var mongoose = require("mongoose");
 var User     = require("../models/user");
+var Schedule = require("../models/schedule");
 
 // データベースにテストデータ作成
 router.get("/", function(req, res) {

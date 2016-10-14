@@ -9,11 +9,11 @@ var bodyParser = require('body-parser');
 var morgan     = require('morgan');
 var mongoose   = require('mongoose');
 var jwt        = require('jsonwebtoken');
+var path       = require('path');
 
 var config     = require('./config');
 var User       = require('./app/models/user');
-
-var path       = require('path');
+var Schedule   = require('./app/models/schedule')
 
 // =======================
 // コンソールカラー
@@ -173,6 +173,29 @@ apiRoutes.get('/users', function(req, res) {
   User.find({}, function(err, users) {
     if (err) throw err;
     res.json(users);
+  });
+});
+
+apiRoutes.get('/schedule', function(req, res) {
+  Schedule.find({}, function(err, schedules) {
+    if (err) throw err;
+    res.json(schedules);
+  });
+});
+
+apiRoutes.post('/schedule', function(req, res) {
+  console.log(req.body.title);
+
+  var schedule = new Schedule({
+    team_id: "null",
+    title: req.body.title,
+    start: req.body.start,
+    end: req.body.end
+  });
+
+  schedule.save({}, function(err) {
+    if (err) throw err;
+    res.json({success: true});
   });
 });
 

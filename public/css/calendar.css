@@ -1,5 +1,15 @@
-.fc-sun {
-  color: #FF0000; }
-
-.fc-sat {
-  color: #0000FF; }
+html {
+  position: relative;
+  min-height: 100%; }
+  html body {
+    margin-bottom: 50px; }
+    html body .fc-sun {
+      color: #FF0000; }
+    html body .fc-sat {
+      color: #0000FF; }
+    html body .modal-footer button {
+      width: 100px; }
+    html body .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%; }
