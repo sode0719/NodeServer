@@ -184,8 +184,6 @@ apiRoutes.get('/schedule', function(req, res) {
 });
 
 apiRoutes.post('/schedule', function(req, res) {
-  console.log(req.body.title);
-
   var schedule = new Schedule({
     team_id: "null",
     title: req.body.title,
@@ -196,6 +194,26 @@ apiRoutes.post('/schedule', function(req, res) {
   schedule.save({}, function(err) {
     if (err) throw err;
     res.json({success: true});
+  });
+});
+
+apiRoutes.delete('/schedule', function(req, res) {
+  Schedule.remove({_id: req.body._id}, function(err) {
+    if (err) throw err;
+    res.json({success: true});
+  });
+});
+
+apiRoutes.put('/schedule', function(req, res) {
+  Schedule.findOne({ _id: req.body._id }, function (err, doc){
+    doc.team_id = "";
+    doc.title = req.body.title;
+    doc.start = req.body.start;
+    doc.end = req.body.end;
+    doc.save({}, function(err) {
+      if (err) throw err;
+      res.json({success: true});
+    });
   });
 });
 

@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(function() {
+  var ev = null;
   $('#js-calendar').fullCalendar({
     header: {
       left: 'prev,next today',
@@ -22,42 +23,63 @@ $(document).ready(function() {
       }
     }],
     dayClick: function(date, allDay, jsEvent, view) {
+      $("#js-title").val("");
+      $("#js-delete").remove();
       var m = moment(date);
       $(".datepicker").val(m.format('YYYY-MM-DD'));
+      $("#js-submit").text("登録");
+      $("#js-delete").remove();
+      //モーダル表示
       $("#js-modal").modal("show");
     },
 
     eventClick: function(event) {
-      //TODO
-      console.log(event);
-      //console.dir(event); オブジェクトの中身をチェック。
-      var title = prompt('予定を更新してください:');
-      if(title && title!=""){
-        event.title = title;
-        //イベント（予定）の修正
-        $('#js-calendar').fullCalendar('updateEvent', event);
-      }else{
-        //イベント（予定）の削除  idを指定して削除。
-        $('#js-calendar').fullCalendar("removeEvents", event._id);
+      $("#js-title").val(event.title);
+      $("#js-delete").remove();
+      $(".modal-footer").append("<button class='btn btn-danger pull-left' id='js-delete' data-dismiss='modal'>削除</button>");
+
+      $("#js-datepicker-start").val(event.start._i);
+      if (event.end === null) {
+        event.end = event.start;
+        $("#js-datepicker-end").val(event.start._i);
+      } else {
+        $("#js-datepicker-end").val(event.end._i);
       }
+      ev = event;
+
+      $("#js-submit").text("更新");
+      $("#js-modal").modal("show");
     },
   });
 
+  //デイトピッカーの設定
   $(".datepicker").datepicker({
-    format: "yyyy/mm/dd",
+    format: "yyyy-mm-dd",
     language: "ja",
     autoclose: true
   });
 
-  //スケジュール追加
+  //スケジュール
   $("#js-submit").on("click", function () {
-    var t = $("#js-title").val();
-    var s = $("#js-datepicker-start").val();
-    var e = $("#js-datepicker-end").val();
-    addSchedule(t, s, e);
+    var title = $("#js-title").val();
+    var start = $("#js-datepicker-start").val();
+    var end = $("#js-datepicker-end").val();
+
+    var text = $("#js-submit").text();
+    if (text === "登録") {
+      addSchedule(title, start, end);
+    } else if (text === "更新") {
+      updateSchedule(ev, title, start, end);
+    }
+  });
+
+  $(document).on("click", "#js-delete", function () {
+    console.log("del");
+    deleteSchedule(ev._id)
   });
 });
 
+//追加
 function addSchedule(title, start, end) {
   $.ajax({
       url: "./api/schedule",
@@ -72,12 +94,7 @@ function addSchedule(title, start, end) {
   .then(
       function (json) {
         if (json.success) {
-          //疑似的にイベントを追加し表示する
-          $('#js-calendar').fullCalendar('addEventSource', [{
-              title: title,
-              start: start,
-              end: end
-          }]);
+          location.reload();
         }
       },
       function () {
@@ -86,27 +103,20 @@ function addSchedule(title, start, end) {
     );
 }
 
-//TODO
-function deleteSchedule(title, start, end) {
+//削除
+function deleteSchedule(id) {
   $.ajax({
       url: "./api/schedule",
-      type:'DELETE',
+      type: 'DELETE',
       dataType: 'json',
       data: {
-        title: title,
-        start: start,
-        end: end
+        _id: id,
       }
   })
   .then(
       function (json) {
         if (json.success) {
-          //疑似的にイベントを追加し表示する
-          $('#js-calendar').fullCalendar('addEventSource', [{
-              title: title,
-              start: start,
-              end: end
-          }]);
+          location.reload();
         }
       },
       function () {
@@ -115,13 +125,15 @@ function deleteSchedule(title, start, end) {
     );
 }
 
-//TODO
-function updeteSchedule(title, start, end) {
+//更新
+function updateSchedule(event, title, start, end) {
   $.ajax({
-      url: "./api/schedule/add",
-      type:'PUT',
+      url: "./api/schedule",
+      type: 'PUT',
       dataType: 'json',
       data: {
+        _id: event._id,
+        team_id: event.team_id,
         title: title,
         start: start,
         end: end
@@ -130,12 +142,7 @@ function updeteSchedule(title, start, end) {
   .then(
       function (json) {
         if (json.success) {
-          //疑似的にイベントを追加し表示する
-          $('#js-calendar').fullCalendar('addEventSource', [{
-              title: title,
-              start: start,
-              end: end
-          }]);
+          location.reload();
         }
       },
       function () {

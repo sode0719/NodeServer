@@ -27,10 +27,10 @@ block content
                 input.form-control#js-title(type='text', placeholder='タイトル', required='')
               .form-group
                 label 開始日
-                input.form-control.datepicker#js-datepicker-start(type='text')
+                input.form-control.datepicker#js-datepicker-start(type='text' readonly)
               .form-group
                 label 終了日
-                input.form-control.datepicker#js-datepicker-end(type='text')
+                input.form-control.datepicker#js-datepicker-end(type='text' readonly)
             .modal-footer
               button.btn.btn-secondary.pull-left(type='button', data-dismiss='modal') キャンセル
               button.btn.btn-primary#js-submit(type='button', data-dismiss='modal') 登録
