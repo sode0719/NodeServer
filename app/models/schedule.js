@@ -7,5 +7,8 @@ module.exports = mongoose.model('Schedule', new Schema({
   team_id: String,
   title: String,
   start: String,
-  end: String
+  end: String,
+  allDay: Boolean,
+  location: String,
+  memo: String,
 }));

@@ -11,9 +11,10 @@ block css
 block content
   .container
     if login
+      //カレンダー
       #js-calendar
 
-      // Modal
+      // モーダル
       #js-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
         .modal-dialog(role='document')
           .modal-content
@@ -23,17 +24,45 @@ block content
               h4#myModalLabel.modal-title スケジュール
             .modal-body
               .form-group
-                label タイトル
-                input.form-control#js-title(type='text', placeholder='タイトル', required='')
+                label.control-label タイトル
+                if delegate
+                  input.form-control#js-title(type='text', placeholder='タイトル')
+                else
+                  input.form-control#js-title(type='text', placeholder='タイトル', readonly)
               .form-group
-                label 開始日
-                input.form-control.datepicker#js-datepicker-start(type='text' readonly)
+                label.control-label 開始日
+                input.form-control.datepicker#js-datepicker-start(type='text', readonly)
               .form-group
-                label 終了日
-                input.form-control.datepicker#js-datepicker-end(type='text' readonly)
+                label.control-label 終了日
+                input.form-control.datepicker#js-datepicker-end(type='text', readonly)
+              .form-group
+                label.control-label 開催場所
+                if delegate
+                  input.form-control#js-location(type='text',  placeholder='開催場所')
+                else
+                  input.form-control#js-location(type='text',  placeholder='開催場所', readonly)
+              .form-group
+                label.control-label メモ
+                if delegate
+                 input.form-control#js-memo(type='text',  placeholder='メモ')
+                else
+                  input.form-control#js-memo(type='text',  placeholder='メモ', readonly)
+              #js-error-messages
+            .modal-footer#modal-footer
+              if delegate
+                button.btn.btn-secondary.pull-left(type='button', data-dismiss='modal') キャンセル
+                button.btn.btn-primary#js-submit(type='button', data-dismiss='modal') 登録
+              else
+                button.btn.btn-secondary(type='button', data-dismiss='modal') 閉じる
+
+      #js-modal-confirm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        .modal-dialog.modal-sm(role='document')
+          .modal-content
+            .modal-body
+              h4#myModalLabel.modal-title 削除しますか？
             .modal-footer
-              button.btn.btn-secondary.pull-left(type='button', data-dismiss='modal') キャンセル
-              button.btn.btn-primary#js-submit(type='button', data-dismiss='modal') 登録
+                button.btn.btn-secondary.pull-left(type='button', data-dismiss='modal') キャンセル
+                button.btn.btn-danger#js-submit-delete(type='button', data-dismiss='modal') 削除
     else
       .alert.alert-danger ログインしてください
 
@@ -44,6 +73,9 @@ block script
   script(src="./js/lib/fullcalendar-3.0.1/ja.js")
   script(src="./js/lib/bootstrap-3.3.7.min.js")
   if login
-    script(src="./js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js")
-    script(src="./js/lib/bootstrap-datepicker/bootstrap-datepicker.ja.min.js")
-    script(src="./js/calendar.js")
+    if delegate
+        script(src="./js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js")
+        script(src="./js/lib/bootstrap-datepicker/bootstrap-datepicker.ja.min.js")
+        script(src="./js/calendar-delegate.js")
+      else
+        script(src="./js/calendar-user.js")

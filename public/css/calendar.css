@@ -3,12 +3,16 @@ html {
   min-height: 100%; }
   html body {
     margin-bottom: 50px; }
+    html body .fc-time {
+      display: none; }
     html body .fc-sun {
       color: #FF0000; }
     html body .fc-sat {
       color: #0000FF; }
-    html body .modal-footer button {
-      width: 100px; }
+    html body .modal {
+      top: 30%; }
+      html body .modal .modal-footer button {
+        width: 100px; }
     html body .footer {
       position: absolute;
       bottom: 0;

@@ -107,8 +107,10 @@ apiRoutes.post('/authenticate', function(req, res) {
       expiresIn: '24h'
     });
 
-    //TODO
+    //アクセストークン
     req.session.token = token;
+    //代表者
+    req.session.delegate = user.delegate;
     req.session.save();
 
     res.json({
@@ -180,7 +182,9 @@ apiRoutes.post('/schedule', function(req, res) {
     title: req.body.title,
     start: req.body.start + " T09:00:00+0900",
     end: req.body.end + " T09:00:00+0900",
-    allDay: false
+    allDay: false,
+    location: req.body.location,
+    memo: req.body.memo,
   });
 
   schedule.save({}, function(err) {

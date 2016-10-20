@@ -5,6 +5,9 @@ html {
   body {
     margin-bottom: 50px;
 
+    .fc-time {
+      display: none;
+    }
     .fc-sun {
       color: #FF0000;
     }
@@ -12,9 +15,12 @@ html {
       color: #0000FF;
     }
 
-    .modal-footer {
-      button {
-        width: 100px;
+    .modal{
+      top: 30%;
+      .modal-footer {
+        button {
+          width: 100px;
+        }
       }
     }
 

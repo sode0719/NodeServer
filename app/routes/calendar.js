@@ -7,7 +7,8 @@ router.get('/', function(req, res, next) {
   if(req.session.token) {
     login = true;
   }
-  res.render('calendar', { title: 'カレンダー', login: login});
+  var delegate = req.session.delegate;
+  res.render('calendar', { title: 'カレンダー', login: login, delegate: delegate});
 });
 
 module.exports = router;
