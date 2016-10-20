@@ -1,4 +1,3 @@
-console.log("Server Starting...");
 // =======================
 // モジュール
 // =======================
@@ -11,33 +10,24 @@ var mongoose   = require('mongoose');
 var jwt        = require('jsonwebtoken');
 var path       = require('path');
 
+//MongoDB
 var config     = require('./config');
 var User       = require('./app/models/user');
 var Schedule   = require('./app/models/schedule')
 
-// =======================
-// コンソールカラー
-// =======================
-var black   = '\u001b[30m';
-var red     = '\u001b[31m';
-var green   = '\u001b[32m';
-var yellow  = '\u001b[33m';
-var blue    = '\u001b[34m';
-var magenta = '\u001b[35m';
-var cyan    = '\u001b[36m';
-var white   = '\u001b[37m';
+var log = require('./logger');
 
-var reset   = '\u001b[0m';
-
-//console.log(red + 'This text is red. ' + green + 'Greeeeeeen!' + reset);
-
+log.info("Server Starting...");
 // =======================
 // コンフィグ
 // =======================
 // データベース接続
 mongoose.connect(config.database, function(err) {
-    if (err) throw err;
-    console.log('Successfully connected to MongoDB');
+    if (err) {
+      log.failure("Connection to MongoDB");
+      throw err;
+    }
+    log.success("Connection to MongoDB");
 });
 
 app.set('superSecret', config.secret);
@@ -177,7 +167,8 @@ apiRoutes.get('/users', function(req, res) {
 });
 
 apiRoutes.get('/schedule', function(req, res) {
-  Schedule.find({}, function(err, schedules) {
+  var query = "{start:{$gte: req.query.start" + ' T09:00:00+0900' + ", $lt: " + req.query.end + "' T09:00:00+0900'}}";
+  Schedule.find(query, function(err, schedules) {
     if (err) throw err;
     res.json(schedules);
   });
@@ -187,8 +178,9 @@ apiRoutes.post('/schedule', function(req, res) {
   var schedule = new Schedule({
     team_id: "null",
     title: req.body.title,
-    start: req.body.start,
-    end: req.body.end
+    start: req.body.start + " T09:00:00+0900",
+    end: req.body.end + " T09:00:00+0900",
+    allDay: false
   });
 
   schedule.save({}, function(err) {
@@ -208,8 +200,8 @@ apiRoutes.put('/schedule', function(req, res) {
   Schedule.findOne({ _id: req.body._id }, function (err, doc){
     doc.team_id = "";
     doc.title = req.body.title;
-    doc.start = req.body.start;
-    doc.end = req.body.end;
+    doc.start = req.body.start + " T09:00:00+0900";
+    doc.end = req.body.end + " T09:00:00+0900";
     doc.save({}, function(err) {
       if (err) throw err;
       res.json({success: true});

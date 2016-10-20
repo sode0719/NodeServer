@@ -8,6 +8,8 @@ var app = require('../server');
 var debug = require('debug')('app:server');
 var http = require('http');
 
+var log = require('../logger');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -26,7 +28,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
-console.log('started http://localhost:' + port + '/');
+log.info('Started http://localhost:' + port + '/');
 
 server.on('error', onError);
 server.on('listening', onListening);
