@@ -1,0 +1,11 @@
+html {
+  position: relative;
+  min-height: 100%; }
+  html body {
+    margin-bottom: 50px; }
+    html body .jumbotron {
+      text-align: center; }
+    html body .footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%; }
