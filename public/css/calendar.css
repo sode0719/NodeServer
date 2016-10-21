@@ -6,11 +6,11 @@ html {
     html body .fc-time {
       display: none; }
     html body .fc-sun {
-      color: #FF0000; }
+      color: #f00; }
     html body .fc-sat {
-      color: #0000FF; }
+      color: #00f; }
     html body .modal {
-      top: 30%; }
+      top: 15%; }
       html body .modal .modal-footer button {
         width: 100px; }
     html body .footer {

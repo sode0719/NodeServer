@@ -4,8 +4,8 @@ html {
   html body {
     margin-bottom: 50px; }
     html body #login-wrapper {
-      margin: 0 auto;
-      max-width: 30em; }
+      max-width: 30em;
+      margin: 0 auto; }
       html body #login-wrapper #js-submit {
         margin-top: 15px; }
       html body #login-wrapper #login-result {

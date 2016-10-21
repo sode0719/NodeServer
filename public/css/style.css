@@ -1,12 +1,12 @@
 body {
   padding-top: 70px; }
   body .footer {
-    background-color: #1b1b1b;
-    background-repeat: repeat-x;
+    text-align: center;
     border-color: #252525;
-    text-align: center; }
+    background-color: #1b1b1b;
+    background-repeat: repeat-x; }
     body .footer p {
       height: 50px;
-      line-height: 50px;
       margin: 0;
+      line-height: 50px;
       color: #9d9d9d; }
