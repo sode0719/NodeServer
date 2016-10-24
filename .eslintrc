@@ -1,0 +1,137 @@
+{
+  "rules": {
+    // 定数式による条件を禁止
+    "no-constant-condition": 2,
+    // console メソッドを注意
+    "no-console": 1,
+    // alert メソッドを許可
+    "no-alert": 0,
+    // debugger メソッドを注意
+    "no-debugger": 1,
+    // 正規表現におけるスペースの利用を許可
+    "no-regex-spaces": 0,
+    // シングルクオートを強制
+    "quotes": [2, "single"],
+    // 厳密等価演算子を強制
+    "eqeqeq": [2, "always"],
+    // 連続スペースの許可
+    "no-multi-spaces": 0,
+    // strict 強制を緩和
+    "strict": 0,
+    // 末尾セミコロンを強制
+    "semi": [2, "always"],
+    // const or let を強制
+    "no-var": 2,
+    // 再代入がない限り const を強制
+    "prefer-const": 2,
+    // カンマ位置は末尾に強制
+    "comma-style": [2, "last"],
+    // インデントスタイルは2スペースに強制
+    "indent": [2, 2, {
+        'SwitchCase': 1,
+    }],
+    // Key:Value におけるコロン前スペースなし、コロン後1スペースを強制
+    "key-spacing": [2, {
+        "beforeColon": false,
+        "afterColon" : true,
+    }],
+    // 連続した空行を注意
+    "no-multiple-empty-lines": [1, {
+      "max": 1,
+    }],
+    // 関数呼び出しの際のスペースを禁止
+    "no-spaced-func": 2,
+    // ブロック開始前のスペースを強制
+    "space-before-blocks": 2,
+    //elseの中にifが一つだけを禁止
+    "no-lonely-if": 2,
+    //アロー関数の矢印の後か前かにスペースを要求する
+    "arrow-spacing": 2,
+    //アロー関数の括弧の一貫した使用を強制
+    "arrow-parens": [2, "always"],
+    //定数を使用して宣言されている修正変数を許可しない
+    "no-const-assign": 2,
+    //複数行のkeyの最後に,を強制する
+    "comma-dangle": [2, "always-multiline"],
+    //重複した仮引数の禁止
+    "no-dupe-args": 2,
+    //keyが重複を禁止
+    "no-dupe-keys": 2,
+    //caseの重複禁止
+    "no-duplicate-case": 2,
+    //不必要な()を許さない
+    "no-extra-parens": 2,
+    //不要なセミコロンの禁止
+    "no-extra-semi": 2,
+    //不要な配列の要素の定義を禁止
+    "no-sparse-arrays": 2,
+    //二つの式のように見えるが、実際には1であるコードを禁止
+    "no-unexpected-multiline": 2,
+    //C#の{の改行の禁止
+    "brace-style": 2,
+    //,の後の改行を禁止
+    "comma-spacing": [2, {
+      "before": false,
+      "after": true,
+    }],
+    //最後の行に改行を強制
+    "eol-last": [2, "always"],
+    //三項演算子の禁止
+    "no-ternary": 2,
+    //可能な場合は代入演算子の省略形を強制
+    "operator-assignment": [2, "always"],
+    //改行の後か前に位置させる操作を強制
+    "operator-linebreak": [2, "after"],
+    //括弧内のスペースを禁止
+    "space-in-parens": [2, "never"],
+    //配列の参照は.で行う
+    "dot-notation": 2,
+    //ドットの後に一貫した改行を強制
+    "dot-location": [2, "property"],
+    //switch文breakを強制
+    "no-fallthrough": 2,
+    //先頭または数値リテラルで小数点を後続の使用を禁止
+    "no-floating-decimal": 2,
+    //短い表記で型変換を禁止
+    "no-implicit-coercion": 2,
+    //ループ内の関数の作成を禁止
+    "no-loop-func": 2,
+    //スラッシュを利用して複数行の文字列を禁止
+    "no-multi-str": 2,
+    //文字列、数値、ブールの新しいインスタンスを作成するのを禁止
+    "no-new-wrappers": 2,
+    //どこにも参照が格納されていない宣言を禁止
+    "no-new": 2,
+    //複数回同じ変数を宣言を禁止
+    "no-redeclare": 2,
+    //ヨーダ記法の禁止
+    "yoda": 2,
+    //初期値を強制
+    "init-declarations": [2, "always"],
+    //3以上のネストを警告
+    "max-depth": [1, 3],
+    //タブの禁止
+    "no-tabs": 2,
+    //varなどの変数は一対一
+    "one-var": [2, "never"],
+    //到達不可能なコードがあるか確認
+    "no-unreachable": 2,
+    //中括弧を強制
+    "curly": 2,
+    //コメントの書式を強制
+    "spaced-comment": [2, "always", {
+        "exceptions": ["-"]
+    }],
+  },
+
+  "ecmaFeatures": {
+    "modules": true,
+  },
+
+  "env": {
+    "browser": true,
+    "jquery": true,
+    "es6": true,
+    "node": true,
+  }
+}

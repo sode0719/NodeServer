@@ -1,18 +1,18 @@
-"use strict";
+'use strict';
 
 $(function () {
-  $("#login").addClass("active");
+  $('#login').addClass('active');
 
-  $("#js-submit").on('click', function () {
-    var id = $("#js-user-id").val();
-    var pass = $("#js-user-password").val();
+  $('#js-submit').on('click', function () {
+    var id = $('#js-user-id').val();
+    var pass = $('#js-user-password').val();
     login(id, pass);
   });
 });
 
 function login(id, pass) {
   $.ajax({
-    url: "./api/authenticate",
+    url: './api/authenticate',
     type: 'POST',
     dataType: 'json',
     data: {
@@ -24,14 +24,14 @@ function login(id, pass) {
   function (json) {
     if (json.success) {
       console.log(json);
-      window.location = "./";
+      window.location = './';
     } else {
-      $("#login-result").addClass("alert alert-danger");
-      $("#login-result").text("ログインできません。");
+      $('#login-result').addClass('alert alert-danger');
+      $('#login-result').text('ログインできません。');
     }
   },
   // 2つめは通信失敗時のコールバック
   function () {
-    alert("読み込み失敗");
+    alert('読み込み失敗');
   });
 }
