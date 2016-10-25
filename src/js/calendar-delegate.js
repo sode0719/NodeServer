@@ -8,18 +8,16 @@ $(function() {
     },
     weekends: true,
     timeFormat: 'H:mm',
-    editable: false, // 変更不可にする
-    eventLimit: true, // 表示上限
+    editable: false,
+    eventLimit: true,
     eventLimitClick: 'popover',
     eventSources: [{
       url: './api/schedule',
       dataType: 'json',
       async: false,
       type: 'GET',
-      data: {
-        flg: 1,
-      },
-      error: function () {
+      data: {flg: 1},
+      error: function() {
         console.log('db err');
       },
     }],
@@ -43,7 +41,7 @@ $(function() {
       $('#modal-footer').append('<button class="btn btn-danger pull-left" id="js-delete" data-dismiss="modal">削除</button>');
 
       $('#js-datepicker-start').val(event.start._i.split(' ')[0]);
-      if (event.end === null) {
+      if(event.end === null) {
         event.end = event.start;
         $('#js-datepicker-end').val(event.start._i.split(' ')[0]);
       } else {
@@ -66,25 +64,25 @@ $(function() {
   });
 
   // スケジュールモーダル
-  $('#js-submit').on('click', function () {
+  $('#js-submit').on('click', function() {
     validationReset();
     let err = false;
     // バリデーション
     const title = $('#js-title').val();
-    if (title === '') {
+    if(title === '') {
       validationAnimation('#js-title');
       validationErrorMessage('タイトルを入力してください');
       err = true;
     }
 
     const start = $('#js-datepicker-start').val();
-    if (start === '') {
+    if(start === '') {
       validationAnimation('#js-datepicker-start');
       validationErrorMessage('開始日を選択してください');
       err = true;
     }
     const end = $('#js-datepicker-end').val();
-    if (end === '') {
+    if(end === '') {
       validationAnimation('#js-datepicker-end');
       validationErrorMessage('終了日を選択してください');
       err = true;
@@ -93,7 +91,7 @@ $(function() {
     // -を削除して比較
     const s = start.replace(/-/g, '');
     const e = end.replace(/-/g, '');
-    if (Number(s) > Number(e)) {
+    if(Number(s) > Number(e)) {
       validationAnimation('#js-datepicker-start');
       validationAnimation('#js-datepicker-end');
       validationErrorMessage('開始日が終了日を越えています');
@@ -109,18 +107,18 @@ $(function() {
     const memo = $('#js-memo').val();
 
     const text = $('#js-submit').text();
-    if (text === '登録') {
+    if(text === '登録') {
       addSchedule(title, start, end, location, memo);
-    } else if (text === '更新') {
+    } else if(text === '更新') {
       updateSchedule(ev, title, start, end);
     }
   });
 
-  $(document).on('click', '#js-delete', function () {
+  $(document).on('click', '#js-delete', function() {
     $('#js-modal-confirm').modal('show');
   });
 
-  $('#js-submit-delete').on('click', function () {
+  $('#js-submit-delete').on('click', function() {
     deleteSchedule(ev._id);
   });
 });
@@ -156,12 +154,12 @@ function addSchedule(title, start, end, location, memo) {
       memo: memo,
     },
   }).then(
-      function (json) {
-        if (json.success) {
+      function(json) {
+        if(json.success) {
           window.location.reload();
         }
       },
-      function () {
+      function() {
         alert('読み込み失敗');
       }
     );
@@ -173,16 +171,14 @@ function deleteSchedule(id) {
     url: './api/schedule',
     type: 'DELETE',
     dataType: 'json',
-    data: {
-      _id: id,
-    },
+    data: {_id: id},
   }).then(
-      function (json) {
-        if (json.success) {
+      function(json) {
+        if(json.success) {
           window.location.reload();
         }
       },
-      function () {
+      function() {
         alert('読み込み失敗');
       }
     );
@@ -202,12 +198,13 @@ function updateSchedule(event, title, start, end) {
       end: end,
     },
   }).then(
-      function (json) {
-        if (json.success) {
+      function(json) {
+        if(json.success) {
           window.location.reload();
         }
       },
-      function () {
+
+      function() {
         alert('読み込み失敗');
       }
     );

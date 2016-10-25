@@ -16,8 +16,6 @@
     "eqeqeq": [2, "always"],
     // 連続スペースの許可
     "no-multi-spaces": 0,
-    // strict 強制を緩和
-    "strict": 0,
     // 末尾セミコロンを強制
     "semi": [2, "always"],
     // const or let を強制
@@ -120,7 +118,54 @@
     "curly": 2,
     //コメントの書式を強制
     "spaced-comment": [2, "always", {
-        "exceptions": ["-"]
+        "exceptions": ["-"],
+    }],
+    //一行にステートメントは一つまでにする
+    "max-statements-per-line": [2, {
+      "max": 1,
+    }],
+    //ソースとコメントは同じ行に書かせない
+    "no-inline-comments": 2,
+    //タブとスペースの混合を禁止
+    "no-mixed-spaces-and-tabs": 2,
+    //無駄なスペースを禁止
+    "no-trailing-spaces": 2,
+    //プロパティが2つ以上ある中括弧は改行を強制
+    "object-curly-newline": [2, { "multiline": true }],
+    //関数と括弧の間スペースを禁止
+    "func-call-spacing": [2, "never"],
+    //予約後のスペース
+    "keyword-spacing": [2, {
+      "after": false,
+      "overrides": {
+        "return": {"after": true},
+        "else": {"after": true},
+      }
+    }],
+    //ファンクションと括弧の間のペースを禁止
+    "space-before-function-paren":  [2, "never"],
+    //演算子の間にスペースを強制
+    "space-infix-ops": 2,
+    //use strictを使用するように警告
+    "strict": [1, "global"],
+    //異なる比較演算子の使用を禁止
+    "no-mixed-operators": [2, {
+      "groups": [
+        ["+", "-", "*", "/", "%", "**"],
+        ["&", "|", "^", "~", "<<", ">>", ">>>"],
+        ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+        ["&&", "||"],
+        ["in", "instanceof"]
+      ],
+      "allowSamePrecedence": true
+      }
+    ],
+    //不規則なスペースの禁止
+    "no-irregular-whitespace": [2, {
+      "skipComments": false,
+      "skipRegExps": false,
+      "skipStrings": false,
+      "skipTemplates": false,
     }],
   },
 

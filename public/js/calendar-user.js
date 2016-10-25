@@ -9,17 +9,15 @@ $(function () {
     },
     weekends: true,
     timeFormat: 'H:mm',
-    editable: false, // 変更不可にする
-    eventLimit: true, // 表示上限
+    editable: false,
+    eventLimit: true,
     eventLimitClick: 'popover',
     eventSources: [{
       url: './api/schedule',
       dataType: 'json',
       async: false,
       type: 'GET',
-      data: {
-        flg: 1
-      },
+      data: { flg: 1 },
       error: function error() {
         console.log('db err');
       }

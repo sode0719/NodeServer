@@ -1,7 +1,7 @@
 $(function() {
   $('#login').addClass('active');
 
-  $('#js-submit').on('click', function () {
+  $('#js-submit').on('click', function() {
     const id = $('#js-user-id').val();
     const pass = $('#js-user-password').val();
     login(id, pass);
@@ -20,7 +20,7 @@ function login(id, pass) {
   })
   .then(
     // 1つめは通信成功時のコールバック
-    function (json) {
+    function(json) {
       if(json.success) {
         console.log(json);
         window.location = './';
@@ -30,7 +30,7 @@ function login(id, pass) {
       }
     },
     // 2つめは通信失敗時のコールバック
-    function () {
+    function() {
       alert('読み込み失敗');
     }
   );

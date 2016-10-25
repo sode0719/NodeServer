@@ -1,6 +1,8 @@
+'use strict';
+
 // get mongoose.Schema
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 // make user model and export
 module.exports = mongoose.model('User', new Schema({
@@ -8,5 +10,5 @@ module.exports = mongoose.model('User', new Schema({
   name: String,
   password: String,
   team_id: String,
-  delegate: Boolean
+  delegate: Boolean,
 }));
