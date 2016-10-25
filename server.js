@@ -175,66 +175,8 @@ apiRoutes.get('/users', function(req, res) {
   });
 });
 
-apiRoutes.get('/schedule/:team_id', function(req, res) {
-  const team_id = req.params.team_id;
-  const start = req.query.start + ' T09:00:00+0900';
-  const end = req.query.end + ' T09:00:00+0900';
-  Schedule.find({
-    team_id: new ObjectId(team_id),
-    start: {
-      $gte: start,
-      $lt: end,
-    },
-  }, function(err, schedules) {
-    if(err) {
-      throw err;
-    }
-    res.json(schedules);
-  });
-});
-
-apiRoutes.post('/schedule', function(req, res) {
-  const schedule = new Schedule({
-    team_id: 'null',
-    title: req.body.title,
-    start: req.body.start + ' T09:00:00+0900',
-    end: req.body.end + ' T09:00:00+0900',
-    allDay: false,
-    location: req.body.location,
-    memo: req.body.memo,
-  });
-
-  schedule.save(function(err) {
-    if(err) {
-      throw err;
-    }
-    res.json({success: true});
-  });
-});
-
-apiRoutes.delete('/schedule', function(req, res) {
-  Schedule.remove({_id: req.body._id}, function(err) {
-    if(err) {
-      throw err;
-    }
-    res.json({success: true});
-  });
-});
-
-apiRoutes.put('/schedule', function(req, res) {
-  Schedule.findOne({_id: req.body._id}, function(err, doc) {
-    doc.team_id = 'null';
-    doc.title = req.body.title;
-    doc.start = req.body.start + ' T09:00:00+0900';
-    doc.end = req.body.end + ' T09:00:00+0900';
-    doc.save(function(err) {
-      if(err) {
-        throw err;
-      }
-      res.json({success: true});
-    });
-  });
-});
+const schedule = require('./app/routes/api/schedule');
+apiRoutes.use('/schedule', schedule);
 
 apiRoutes.get('/logout', function(req, res) {
   req.session.destroy();
