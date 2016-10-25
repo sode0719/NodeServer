@@ -15,7 +15,6 @@ const cors       = require('cors');
 // MongoDB
 const config     = require('./config');
 const User       = require('./app/models/user');
-const Schedule   = require('./app/models/schedule');
 const ObjectId    = require('mongoose').Types.ObjectId;
 
 const log = require('./logger');

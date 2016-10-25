@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --ignore node_module/ --ignore public/ -e js,jade ./bin/www"
+    "start": "nodemon --ignore node_module/ --ignore public/ --ignore src/ -e js,jade ./bin/www"
   },
   "keywords": [],
   "author": "",

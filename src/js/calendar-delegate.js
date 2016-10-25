@@ -1,8 +1,8 @@
 'use strict';
 
+const team_id = $('#js-team_id').text();
 $(function() {
   let ev = null;
-  const team_id = $('#js-team_id').text();
   $('#js-calendar').fullCalendar({
     header: {
       left: 'prev,next today',
@@ -145,7 +145,7 @@ function validationReset() {
 // 追加
 function addSchedule(title, start, end, location, memo) {
   $.ajax({
-    url: './api/schedule',
+    url: './api/schedule/' + team_id,
     type: 'POST',
     dataType: 'json',
     data: {

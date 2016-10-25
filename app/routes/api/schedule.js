@@ -23,9 +23,10 @@ apiRoutes.get('/:team_id', function(req, res) {
   });
 });
 
-apiRoutes.post('/', function(req, res) {
+apiRoutes.post('/:team_id', function(req, res) {
+  const team_id = req.params.team_id;
   const schedule = new Schedule({
-    team_id: 'null',
+    team_id: new ObjectId(team_id),
     title: req.body.title,
     start: req.body.start + ' T09:00:00+0900',
     end: req.body.end + ' T09:00:00+0900',
@@ -53,7 +54,7 @@ apiRoutes.delete('/', function(req, res) {
 
 apiRoutes.put('/', function(req, res) {
   Schedule.findOne({_id: req.body._id}, function(err, doc) {
-    doc.team_id = 'null';
+    doc.team_id = new ObjectId(req.body.team_id);
     doc.title = req.body.title;
     doc.start = req.body.start + ' T09:00:00+0900';
     doc.end = req.body.end + ' T09:00:00+0900';
