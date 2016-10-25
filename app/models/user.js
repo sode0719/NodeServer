@@ -9,6 +9,6 @@ module.exports = mongoose.model('User', new Schema({
   id: String,
   name: String,
   password: String,
-  team_id: String,
+  team_id: Schema.Types.ObjectId,
   delegate: Boolean,
 }));

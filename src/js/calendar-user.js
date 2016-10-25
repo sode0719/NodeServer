@@ -1,4 +1,7 @@
+'use strict';
+
 $(function() {
+  const team_id = $('#js-team_id').text();
   $('#js-calendar').fullCalendar({
     header: {
       left: 'prev,next today',
@@ -11,11 +14,10 @@ $(function() {
     eventLimit: true,
     eventLimitClick: 'popover',
     eventSources: [{
-      url: './api/schedule',
+      url: './api/schedule/' + team_id,
       dataType: 'json',
       async: false,
       type: 'GET',
-      data: {flg: 1},
       error: function() {
         console.log('db err');
       },

@@ -10,7 +10,10 @@ router.get('/', function(req, res, next) {
     login = true;
   }
 
-  res.render('index', { title: 'ホーム', login: login});
+  res.render('index', {
+    title: 'ホーム',
+    login: login,
+  });
 });
 
 module.exports = router;

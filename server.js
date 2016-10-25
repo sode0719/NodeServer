@@ -16,6 +16,7 @@ const cors       = require('cors');
 const config     = require('./config');
 const User       = require('./app/models/user');
 const Schedule   = require('./app/models/schedule');
+const ObjectId    = require('mongoose').Types.ObjectId;
 
 const log = require('./logger');
 
@@ -111,6 +112,8 @@ apiRoutes.post('/authenticate', function(req, res) {
     req.session.token = token;
     // 代表者
     req.session.delegate = user.delegate;
+    // チームID
+    req.session.team_id = user.team_id;
     req.session.save();
 
     res.json({
@@ -172,11 +175,12 @@ apiRoutes.get('/users', function(req, res) {
   });
 });
 
-apiRoutes.get('/schedule', function(req, res) {
-  // TODO: チームIDで検索
+apiRoutes.get('/schedule/:team_id', function(req, res) {
+  const team_id = req.params.team_id;
   const start = req.query.start + ' T09:00:00+0900';
   const end = req.query.end + ' T09:00:00+0900';
   Schedule.find({
+    team_id: new ObjectId(team_id),
     start: {
       $gte: start,
       $lt: end,

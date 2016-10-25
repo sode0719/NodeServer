@@ -10,7 +10,14 @@ router.get('/', function(req, res, next) {
     login = true;
   }
   const delegate = req.session.delegate;
-  res.render('calendar', { title: 'カレンダー', login: login, delegate: delegate});
+  const team_id = req.session.team_id;
+  console.log(team_id);
+  res.render('calendar', {
+    title: 'カレンダー',
+    login: login,
+    delegate: delegate,
+    team_id: team_id,
+  });
 });
 
 module.exports = router;

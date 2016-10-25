@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 // make user model and export
 module.exports = mongoose.model('Schedule', new Schema({
-  team_id: String,
+  team_id: Schema.Types.ObjectId,
   title: String,
   start: String,
   end: String,
