@@ -3,7 +3,6 @@
 const express = require('express');
 const router  = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   let login = false;
   if(req.session.token) {
@@ -11,7 +10,7 @@ router.get('/', function(req, res, next) {
   }
   const delegate = req.session.delegate;
   const team_id = req.session.team_id;
-  console.log(team_id);
+
   res.render('calendar', {
     title: 'カレンダー',
     login: login,
