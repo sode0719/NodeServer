@@ -1,12 +1,8 @@
+@charset "UTF-8";
 body {
-  padding-top: 70px; }
-  body .footer {
-    text-align: center;
-    border-color: #252525;
-    background-color: #1b1b1b;
-    background-repeat: repeat-x; }
-    body .footer p {
-      height: 50px;
-      margin: 0;
-      line-height: 50px;
-      color: #9d9d9d; }
+  font-family: "メイリオ", sans-serif; }
+  body .navbar {
+    margin-bottom: 20px; }
+  body i {
+    top: 8px;
+    left: 12px; }

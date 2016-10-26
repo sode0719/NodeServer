@@ -9,18 +9,22 @@ block css
 block content
   .container
     #login-wrapper
-      h2 ログイン認証
-      form
-      .form-group
-        label ユーザー名
-        input.form-control#js-user-id(type='text', placeholder='ユーザーID', required='', autofocus='', value='user')
-      .form-group
-        label  パスワード
-        input.form-control#js-user-password(type='password', placeholder='パスワード', required='', value='userpass')
-      button.btn.btn-lg.btn-primary.btn-block#js-submit(type='submit') ログイン
-      #login-result
-
+      .card-block
+        .text-xs-center
+          h3 ログイン認証
+          hr.m-t-2.m-b-2
+        form
+          .md-form
+            i.fa.fa-user.prefix
+            input#js-user-id.form-control(type='text', value='admin')
+            label ユーザー名
+            
+          .md-form
+            i.fa.fa-lock.prefix
+            input#js-user-password.form-control(type='password', value='adminpass')
+            label パスワード
+          button.btn.btn-lg.btn-primary.btn-block#js-submit(type='submit') ログイン
+          #login-result
 
 block script
-  script(src='./js/lib/jquery-2.2.4.min.js')
   script(src="./js/login.js")

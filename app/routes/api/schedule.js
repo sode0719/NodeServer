@@ -9,6 +9,7 @@ apiRoutes.get('/:team_id', function(req, res) {
   const team_id = req.params.team_id;
   const start = req.query.start + ' T09:00:00+0900';
   const end = req.query.end + ' T09:00:00+0900';
+
   Schedule.find({
     team_id: new ObjectId(team_id),
     start: {

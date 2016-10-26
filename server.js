@@ -119,6 +119,7 @@ apiRoutes.post('/authenticate', function(req, res) {
       success: true,
       message: 'Authentication successfully finished.',
       token: token,
+      team_id: user.team_id,
     });
   });
 });
@@ -174,13 +175,13 @@ apiRoutes.get('/users', function(req, res) {
   });
 });
 
-const schedule = require('./app/routes/api/schedule');
-apiRoutes.use('/schedule', schedule);
-
 apiRoutes.get('/logout', function(req, res) {
   req.session.destroy();
   res.json({message: 'Logout'});
 });
+
+const schedule = require('./app/routes/api/schedule');
+apiRoutes.use('/schedule', schedule);
 
 app.use('/api', apiRoutes);
 

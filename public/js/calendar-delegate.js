@@ -2,6 +2,9 @@
 
 var team_id = $('#js-team_id').text();
 $(function () {
+  // navbar
+  $('#js-schedule').addClass('active');
+
   var ev = null;
   $('#js-calendar').fullCalendar({
     header: {

@@ -1,7 +1,8 @@
 'use strict';
 
 $(function () {
-  $('#login').addClass('active');
+  // navbar
+  $('#js-log').addClass('active');
 
   $('#js-submit').on('click', function () {
     var id = $('#js-user-id').val();
@@ -26,8 +27,8 @@ function login(id, pass) {
       console.log(json);
       window.location = './';
     } else {
-      $('#login-result').addClass('alert alert-danger');
-      $('#login-result').text('ログインできません。');
+      $('#login-result').empty();
+      $('#login-result').append('<div class="alert alert-danger animated shake">ログインできません。</div>');
     }
   },
   // 2つめは通信失敗時のコールバック

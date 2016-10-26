@@ -1,17 +1,5 @@
-html {
-  position: relative;
-  min-height: 100%;
-
-  body {
-    margin-bottom: 50px;
-
-    .jumbotron {
-      text-align: center;
-    }
-    .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
+body {
+  .jumbotron {
+    text-align: center;
   }
 }

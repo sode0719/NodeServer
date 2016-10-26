@@ -1,7 +1,10 @@
 'use strict';
 
+const team_id = $('#js-team_id').text();
 $(function() {
-  const team_id = $('#js-team_id').text();
+  // navbar
+  $('#js-schedule').addClass('active');
+
   $('#js-calendar').fullCalendar({
     header: {
       left: 'prev,next today',

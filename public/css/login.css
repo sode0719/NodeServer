@@ -1,16 +1,10 @@
-html {
-  position: relative;
-  min-height: 100%; }
-  html body {
-    margin-bottom: 50px; }
-    html body #login-wrapper {
-      max-width: 30em;
-      margin: 0 auto; }
-      html body #login-wrapper #js-submit {
-        margin-top: 15px; }
-      html body #login-wrapper #login-result {
-        margin-top: 15px; }
-    html body .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%; }
+body h2 {
+  padding-bottom: 25px; }
+
+body #login-wrapper {
+  max-width: 30em;
+  margin: 0 auto; }
+  body #login-wrapper #js-submit {
+    margin-top: 15px; }
+  body #login-wrapper #login-result {
+    margin-top: 15px; }

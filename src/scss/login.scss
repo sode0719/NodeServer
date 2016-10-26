@@ -1,26 +1,17 @@
-html {
-  position: relative;
-  min-height: 100%;
+body {
+  h2 {
+    padding-bottom: 25px;
+  }
 
-  body {
-    margin-bottom: 50px;
+  #login-wrapper {
+    max-width: 30em;
+    margin: 0 auto;
 
-    #login-wrapper {
-      max-width: 30em;
-      margin: 0 auto;
-
-      #js-submit {
-        margin-top: 15px;
-      }
-      #login-result {
-        margin-top: 15px;
-      }
+    #js-submit {
+      margin-top: 15px;
     }
-
-    .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
+    #login-result {
+      margin-top: 15px;
     }
   }
 }

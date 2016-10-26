@@ -1,33 +1,15 @@
-html {
-  position: relative;
-  min-height: 100%;
+body {
 
-  body {
-    margin-bottom: 50px;
-
-    .fc-time {
-      display: none;
-    }
-    .fc-sun {
-      color: #f00;
-    }
-    .fc-sat {
-      color: #00f;
-    }
-
-    .modal {
-      top: 15%;
-      .modal-footer {
-        button {
-          width: 100px;
-        }
-      }
-    }
-
-    .footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
+  .fc-time {
+    display: none;
+  }
+  .fc-title {
+    color: #fff;
+  }
+  .fc-sun {
+    color: #f00;
+  }
+  .fc-sat {
+    color: #00f;
   }
 }

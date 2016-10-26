@@ -2,11 +2,19 @@ doctype html
 html
   head
     block title
-    link(rel='stylesheet', href='./css/lib/bootstrap-3.3.7.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='./css/lib/bootstrap.min.css')
+    link(rel='stylesheet', href='./css/lib/mdb.min.css')
     link(rel='stylesheet', href='./css/style.css')
+    
     block css
   body
     include header
     block content
     include footer
+    
+    script(src='./js/lib/jquery-2.2.4.min.js')
+    script(src='./js/lib/tether.min.js')
+    script(src='./js/lib/mdb.min.js')
+    script(src='./js/lib/bootstrap.min.js')
     block script

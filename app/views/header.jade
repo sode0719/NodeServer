@@ -1,18 +1,21 @@
-header.navbar.navbar-inverse.navbar-fixed-top
+nav.navbar.navbar-dark.bg-primary
+  button.navbar-toggler.hidden-sm-up(type='button', data-toggle='collapse', data-target='#collapseEx2')
+    i.fa.fa-bars
   .container
-    a.navbar-brand.text-muted(href='./') 少年団支援システム
-    ul.nav.navbar-nav.navbar-right
-      li#timeline
-        a(href='#') タイムライン
-      li#calendar
-        a(href='./calendar') カレンダー
-      li#dispatcher
-        a(href='#') 配車
-      li#score
-        a(href='#') スコア
-      if login
-        li#login
-          a(href='./logout') ログアウト
-      else
-        li#login
-          a(href='./login') ログイン
+    #collapseEx2.collapse.navbar-toggleable-xs
+      a.navbar-brand(href='./')
+        i.fa.fa-home.fa-lg
+      ul.nav.navbar-nav
+        li#js-timeline.nav-item
+          a.nav-link(href='#') タイムライン
+        li#js-schedule.nav-item
+          a.nav-link(href='./calendar') カレンダー
+        li#js-dispatcher.nav-item
+          a.nav-link(href='#') 配車
+        li#js-score.nav-item
+          a.nav-link(href='#') スコア
+        li#js-log.nav-item
+          if login
+            a.nav-link(href='./logout') ログアウト
+          else
+            a.nav-link(href='./login') ログイン
