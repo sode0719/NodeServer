@@ -39,9 +39,9 @@ $(function() {
     },
 
     eventClick: function(event) {
-      $('#js-title').val(event.title);
-      $('#js-location').val(event.location);
-      $('#js-memo').val(event.memo);
+      $('#js-title').val(event.title).parent().find('label').addClass('active');
+      $('#js-location').val(event.location).parent().find('label').addClass('active');
+      $('#js-memo').val(event.memo).parent().find('label').addClass('active');
       $('#js-delete').remove();
       $('#modal-footer').append('<button class="btn btn-danger pull-left" id="js-delete" data-dismiss="modal">削除</button>');
 
@@ -115,7 +115,7 @@ $(function() {
     if(text === '登録') {
       addSchedule(title, start, end, location, memo);
     } else if(text === '更新') {
-      updateSchedule(ev, title, start, end);
+      updateSchedule(ev, title, start, end, location, memo);
     }
   });
 
@@ -190,7 +190,7 @@ function deleteSchedule(id) {
 }
 
 // 更新
-function updateSchedule(event, title, start, end) {
+function updateSchedule(event, title, start, end, location, memo) {
   $.ajax({
     url: './api/schedule',
     type: 'PUT',
@@ -201,6 +201,8 @@ function updateSchedule(event, title, start, end) {
       title: title,
       start: start,
       end: end,
+      location: location,
+      memo: memo,
     },
   }).then(
       function(json) {
@@ -216,7 +218,7 @@ function updateSchedule(event, title, start, end) {
 }
 
 function fromReset() {
-  $('#js-title').val('');
-  $('#js-location').val('');
-  $('#js-memo').val('');
+  $('#js-title').val('').parent().find('label').removeClass('active');
+  $('#js-location').val('').parent().find('label').removeClass('active');
+  $('#js-memo').val('').parent().find('label').removeClass('active');
 }

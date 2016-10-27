@@ -59,6 +59,8 @@ apiRoutes.put('/', function(req, res) {
     doc.title = req.body.title;
     doc.start = req.body.start + ' T09:00:00+0900';
     doc.end = req.body.end + ' T09:00:00+0900';
+    doc.location = req.body.location;
+    doc.memo = req.body.memo;
     doc.save(function(err) {
       if(err) {
         throw err;

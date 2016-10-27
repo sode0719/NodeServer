@@ -26,9 +26,9 @@ block content
             .modal-body
               .md-form
                 if delegate
-                  input#form1.form-control(type='text')
+                  input#js-title.form-control(type='text')
                 else
-                  input#form1.form-control(type='text', readonly)
+                  input#js-title.form-control(type='text', readonly)
                 label タイトル
               .form-group
                 label.control-label 開始日
@@ -38,20 +38,20 @@ block content
                 input.form-control.datepicker#js-datepicker-end(type='text', readonly)
               .md-form
                 if delegate
-                  input#form1.form-control(type='text')
+                  input#js-location.form-control(type='text')
                 else
-                  input#form1.form-control(type='text', readonly)
+                  input#js-location.form-control(type='text', readonly)
                 label 開催場所
                 .md-form
                   if delegate
-                    input#form1.form-control(type='text')
+                    input#js-memo.form-control(type='text')
                   else
-                    input#form1.form-control(type='text', readonly)
+                    input#js-memo.form-control(type='text', readonly)
                   label メモ
               #js-error-messages
             .modal-footer#modal-footer
               if delegate
-                button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') キャンセル
+                button.btn.btn-blue-grey.pull-left(type='button', data-dismiss='modal') キャンセル
                 button.btn.btn-primary#js-submit(type='button', data-dismiss='modal') 登録
               else
                 button.btn.btn-danger(type='button', data-dismiss='modal') 閉じる
@@ -62,7 +62,7 @@ block content
             .modal-body
               h4#myModalLabel.modal-title 削除しますか？
             .modal-footer
-                button.btn.btn-danger.pull-left(type='button', data-dismiss='modal') キャンセル
+                button.btn.btn-blue-grey.pull-left(type='button', data-dismiss='modal') キャンセル
                 button.btn.btn-danger#js-submit-delete(type='button', data-dismiss='modal') 削除
     else
       .alert.alert-danger ログインしてください

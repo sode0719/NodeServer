@@ -6,6 +6,8 @@ $(function() {
     const id = $('#js-user-id').val();
     const pass = $('#js-user-password').val();
     login(id, pass);
+
+    return false;
   });
 });
 
@@ -32,7 +34,8 @@ function login(id, pass) {
     },
     // 2つめは通信失敗時のコールバック
     function() {
-      alert('読み込み失敗');
+      $('#login-result').empty();
+      $('#login-result').append('<div class="alert alert-danger animated shake">サーバーにアクセスできません。</div>');
     }
   );
 }
