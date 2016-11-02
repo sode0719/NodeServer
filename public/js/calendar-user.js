@@ -26,9 +26,9 @@ $(function () {
       }
     }],
     eventClick: function eventClick(event) {
-      $('#js-title').val(event.title);
-      $('#js-location').val(event.location);
-      $('#js-memo').val(event.memo);
+      $('#js-title').val(event.title).parent().find('label').addClass('active');
+      $('#js-location').val(event.location).parent().find('label').addClass('active');
+      $('#js-memo').val(event.memo).parent().find('label').addClass('active');
 
       $('#js-datepicker-start').val(event.start._i.split(' ')[0]);
       if (event.end === null) {

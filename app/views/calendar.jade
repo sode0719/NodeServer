@@ -42,12 +42,12 @@ block content
                 else
                   input#js-location.form-control(type='text', readonly)
                 label 開催場所
-                .md-form
-                  if delegate
-                    input#js-memo.form-control(type='text')
-                  else
-                    input#js-memo.form-control(type='text', readonly)
-                  label メモ
+              .md-form
+                if delegate
+                  input#js-memo.form-control(type='text')
+                else
+                  input#js-memo.form-control(type='text', readonly)
+                label メモ
               #js-error-messages
             .modal-footer#modal-footer
               if delegate
@@ -56,14 +56,15 @@ block content
               else
                 button.btn.btn-danger(type='button', data-dismiss='modal') 閉じる
 
-      #js-modal-confirm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
-        .modal-dialog.modal-sm(role='document')
-          .modal-content
-            .modal-body
-              h4#myModalLabel.modal-title 削除しますか？
-            .modal-footer
-                button.btn.btn-blue-grey.pull-left(type='button', data-dismiss='modal') キャンセル
-                button.btn.btn-danger#js-submit-delete(type='button', data-dismiss='modal') 削除
+      if delegate
+        #js-modal-confirm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+          .modal-dialog.modal-sm(role='document')
+            .modal-content
+              .modal-body
+                h4#myModalLabel.modal-title 削除しますか？
+              .modal-footer
+                  button.btn.btn-blue-grey.pull-left(type='button', data-dismiss='modal') キャンセル
+                  button.btn.btn-danger#js-submit-delete(type='button', data-dismiss='modal') 削除
     else
       .alert.alert-danger ログインしてください
 
