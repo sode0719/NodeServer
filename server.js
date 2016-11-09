@@ -13,11 +13,11 @@ const path       = require('path');
 const cors       = require('cors');
 
 // MongoDB
-const config     = require('./config');
+const config     = require('./app/util/config');
 const User       = require('./app/models/user');
-const ObjectId    = require('mongoose').Types.ObjectId;
+const ObjectId   = require('mongoose').Types.ObjectId;
 
-const log = require('./logger');
+const log        = require('./app/util/logger');
 
 log.info('Server Starting...');
 //--------------------------------------------------
