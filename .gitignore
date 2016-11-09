@@ -1,3 +1,5 @@
 /node_modules
 *.log
 .idea
+/app/util/fcm-server-key.js
+/app/util/config.js
