@@ -3,13 +3,12 @@
 const FCM = require('fcm-node');
 const fmcKey = require('./fcm-server-key');
 
-const fcm = new FCM(fmcKey.serverKey);
+const fcm = new FCM(fmcKey.key);
 
-exports.fcmSend = function(to, title, body) {
+exports.send = function(to, body) {
   const message = {
     to: to,
     notification: {
-      'title': title,
       'body': body,
       'sound': 'default',
     },
@@ -17,9 +16,7 @@ exports.fcmSend = function(to, title, body) {
 
   fcm.send(message, function(err, response) {
     if(err) {
-      return false;
-    } else {
-      return true;
+      console.log(err);
     }
   });
 };

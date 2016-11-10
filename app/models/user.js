@@ -11,4 +11,5 @@ module.exports = mongoose.model('User', new Schema({
   password: String,
   team_id: Schema.Types.ObjectId,
   delegate: Boolean,
+  fcmToken: String,
 }));
