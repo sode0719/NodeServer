@@ -64,12 +64,20 @@ app.use(cors({origin: '*'}));
 //--------------------------------------------------
 const index = require('./app/routes/index');
 app.use('/', index);
+
+//消す
 const setup = require('./app/routes/setup');
 app.use('/setup', setup);
+
+const register = require('./app/routes/register');
+app.use('/register', register);
+
 const login = require('./app/routes/login');
 app.use('/login', login);
+
 const logout = require('./app/routes/logout');
 app.use('/logout', logout);
+
 const calendar = require('./app/routes/calendar');
 app.use('/calendar', calendar);
 
@@ -78,6 +86,12 @@ app.use('/calendar', calendar);
 //--------------------------------------------------
 const apiRoutes = new express.Router();
 // 認証不要 api --------
+const user = require('./app/routes/api/user');
+apiRoutes.use('/user', user);
+
+const team = require('./app/routes/api/team');
+apiRoutes.use('/team', team);
+
 // POST(http://localhost:8080/api/authenticate)
 apiRoutes.post('/authenticate', function(req, res) {
 
