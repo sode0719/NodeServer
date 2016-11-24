@@ -10,22 +10,33 @@ const plumber = require('gulp-plumber');
 //--------------------------------------------------
 // path
 //--------------------------------------------------
-const jsSrcPath   = './src/js';
-const jsDestPath  = './public/js';
-const cssSrcPath  = './src/scss';
-const cssDestPath = './public/css';
+const jsSrcPath    = './src/js';
+const jsDestPath   = './public/js';
+const jsxSrcPath   = './src/jsx';
+const jsxDestPath  = './public/js/component';
+const cssSrcPath   = './src/scss';
+const cssDestPath  = './public/css';
 
 //--------------------------------------------------
 // tasks
 //--------------------------------------------------
-gulp.task('default', ['watch', 'sass', 'babel']);
+gulp.task('default', [
+  'watch',
+  'babel',
+  'react',
+  'sass',
+]);
 
 //--------------------------------------------------
 // watch
 //--------------------------------------------------
-gulp.task( 'watch', function() {
+gulp.task('watch', function() {
   gulp.watch(jsSrcPath  + '/*.js', () => {
     gulp.start(['babel']);
+  });
+
+  gulp.watch(jsxSrcPath  + '/*.jsx', () => {
+    gulp.start(['react']);
   });
 
   gulp.watch(cssSrcPath + '/*.scss', () => {
@@ -45,9 +56,19 @@ gulp.task('babel', () => {
 });
 
 //--------------------------------------------------
+// react
+//--------------------------------------------------
+gulp.task('react', () => {
+  gulp.src(jsxSrcPath + '/*.jsx')
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(gulp.dest(jsxDestPath));
+});
+
+//--------------------------------------------------
 // sass
 //--------------------------------------------------
-gulp.task( 'sass', function() {
+gulp.task('sass', function() {
   return gulp.src(cssSrcPath + '/*.scss')
   .pipe(plumber())
   .pipe(sass())

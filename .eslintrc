@@ -74,8 +74,8 @@
     }],
     //最後の行に改行を強制
     "eol-last": [2, "always"],
-    //三項演算子の禁止
-    "no-ternary": 2,
+    //三項演算子の警告
+    "no-ternary": 1,
     //可能な場合は代入演算子の省略形を強制
     "operator-assignment": [2, "always"],
     //改行の後か前に位置させる操作を強制
@@ -140,6 +140,8 @@
       "overrides": {
         "return": {"after": true},
         "else": {"after": true},
+        "let": {"after": true},
+        "const": {"after": true},
       }
     }],
     //ファンクションと括弧の間のペースを禁止
@@ -169,8 +171,23 @@
     }],
   },
 
-  "ecmaFeatures": {
-    "modules": true,
+  "parserOptions": {
+    "ecmaFeatures": {
+      "modules": true,
+      "jsx": true,
+    },
+  },
+
+  "plugins": [
+    "react"
+  ],
+
+  "settings": {
+    "react": {
+      "createClass": "createClass",
+      "pragma": "React",
+      "version": "15.0"
+    }
   },
 
   "env": {
