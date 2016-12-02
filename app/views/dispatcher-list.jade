@@ -1,0 +1,25 @@
+extends layout
+
+block title
+  title= title
+
+block css
+  //link(rel='stylesheet', href='./css/dispatcher.css')
+  link(rel='stylesheet', href='http://localhost:3000/css/lib/bootstrap-datepicker.css')
+
+block content
+  .container
+    if login
+      #js-team_id(style='display: none')= team_id
+      #dispatcher-list
+    else
+      .alert.alert-danger ログインしてください
+
+block script
+  script(src='https://npmcdn.com/react@15/dist/react-with-addons.js')
+  script(src='https://unpkg.com/react-dom@15/dist/react-dom.js')
+  script(src='https://npmcdn.com/reactstrap@2/dist/reactstrap.min.js')
+  if login
+    script(src="http://localhost:3000/js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js")
+    script(src="http://localhost:3000/js/lib/bootstrap-datepicker/bootstrap-datepicker.ja.min.js")
+    script(src="http://localhost:3000/js/component/dispatcher-list.js")

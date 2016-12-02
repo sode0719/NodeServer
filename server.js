@@ -81,6 +81,9 @@ app.use('/logout', logout);
 const calendar = require('./app/routes/calendar');
 app.use('/calendar', calendar);
 
+const dispatcher = require('./app/routes/dispatcher');
+app.use('/dispatcher', dispatcher);
+
 //--------------------------------------------------
 // APIルーティング
 //--------------------------------------------------
@@ -196,6 +199,9 @@ apiRoutes.get('/logout', function(req, res) {
 
 const schedule = require('./app/routes/api/schedule');
 apiRoutes.use('/schedule', schedule);
+
+const dispat = require('./app/routes/api/dispatcher');
+apiRoutes.use('/dispatcher', dispat);
 
 app.use('/api', apiRoutes);
 

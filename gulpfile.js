@@ -1,3 +1,4 @@
+'use strict';
 //--------------------------------------------------
 // modules laod
 //--------------------------------------------------
@@ -10,12 +11,12 @@ const plumber = require('gulp-plumber');
 //--------------------------------------------------
 // path
 //--------------------------------------------------
-const jsSrcPath    = './src/js';
-const jsDestPath   = './public/js';
-const jsxSrcPath   = './src/jsx';
-const jsxDestPath  = './public/js/component';
-const cssSrcPath   = './src/scss';
-const cssDestPath  = './public/css';
+const jsSrcPath   = './src/js';
+const jsDestPath  = './public/js';
+const jsxSrcPath  = './src/jsx';
+const jsxDestPath = './public/js/component';
+const cssSrcPath  = './src/scss';
+const cssDestPath = './public/css';
 
 //--------------------------------------------------
 // tasks
@@ -69,7 +70,7 @@ gulp.task('react', () => {
 // sass
 //--------------------------------------------------
 gulp.task('sass', function() {
-  return gulp.src(cssSrcPath + '/*.scss')
+  gulp.src(cssSrcPath + '/*.scss')
   .pipe(plumber())
   .pipe(sass())
   .pipe(gulp.dest(cssDestPath));
