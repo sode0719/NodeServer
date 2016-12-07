@@ -53,7 +53,12 @@ app.use(session({
   secret: 'token',
   saveUninitialized: true,
   resave: false,
-  cookie: {maxAge: null},
+  cookie: {
+    // cookieへのアクセスをHTTPのみに制限
+    httpOnly: true,
+    // クッキーの有効期限(msec)
+    maxAge: null,
+  },
 }));
 
 // CORSを許可する
@@ -64,10 +69,6 @@ app.use(cors({origin: '*'}));
 //--------------------------------------------------
 const index = require('./app/routes/index');
 app.use('/', index);
-
-//消す
-const setup = require('./app/routes/setup');
-app.use('/setup', setup);
 
 const register = require('./app/routes/register');
 app.use('/register', register);
@@ -130,13 +131,14 @@ apiRoutes.post('/authenticate', function(req, res) {
     req.session.delegate = user.delegate;
     // チームID
     req.session.team_id = user.team_id;
+
     req.session.save();
 
     res.json({
       success: true,
-      message: 'Authentication successfully finished.',
       token: token,
       team_id: user.team_id,
+      user_id: user._id,
     });
   });
 });

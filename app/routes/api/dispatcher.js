@@ -32,8 +32,9 @@ apiRoutes.post('/', function(req, res) {
       if(err) {
         throw err;
       }
-
-      fcmSend(team_id, '「' + req.body.title + '」の配車が登録されました');
+      let date = req.body.date.split('-');
+      date = date[0] + '年' + date[1] + '月' + date[2] + '日';
+      fcmSend(team_id, '「' + date + ' ' + req.body.title + '」の配車が登録されました');
 
       res.json({success: true});
     });
@@ -60,6 +61,7 @@ apiRoutes.put('/:dispatcher_id', function(req, res) {
       }
       const data = JSON.parse(doc.divide);
 
+      /*
       console.log('going');
       for(let i = 0; i < data.going.length; i++) {
         console.log(data.going[i].owner_id + ' ' + data.going[i].capacity);
@@ -75,6 +77,7 @@ apiRoutes.put('/:dispatcher_id', function(req, res) {
           console.log(data.return[i].divide[j].name);
         }
       }
+      */
 
       fcmSend(doc.team_id, '「' + doc.title + '」の配車が決定しました');
 
@@ -112,7 +115,17 @@ apiRoutes.get('/id/:id', function(req, res) {
   });
 });
 
-apiRoutes.put('/', function(req, res) {
+apiRoutes.get('/user/:dispatcher_id/:id', function(req, res) {
+  Confirm.find({
+    dispatcher_id: ObjectId(req.body.dispatcher_id),
+    user_id: ObjectId(req.params.id),
+  }, function(err, confirm) {
+    if(err) {
+      throw err;
+    }
+
+    res.json(confirm);
+  });
 });
 
 // プッシュ通知

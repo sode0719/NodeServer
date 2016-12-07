@@ -29,7 +29,7 @@ block content
                   input#js-title.form-control(type='text')
                 else
                   input#js-title.form-control(type='text', readonly)
-                label タイトル
+                label(for='js-title') タイトル
               .form-group
                 label.control-label 開始日
                 input.form-control.datepicker#js-datepicker-start(type='text', readonly)
@@ -41,13 +41,21 @@ block content
                   input#js-location.form-control(type='text')
                 else
                   input#js-location.form-control(type='text', readonly)
-                label 開催場所
+                label(for='js-location') 開催場所
               .md-form
                 if delegate
                   input#js-memo.form-control(type='text')
                 else
                   input#js-memo.form-control(type='text', readonly)
-                label メモ
+                label(for='js-memo') メモ
+              if delegate
+                .form-group
+                  .form-check
+                    label.form-check-label
+                      h5
+                        input.form-check-input.js-dispatcher(type='checkbox')
+                        | 配車
+                .md-form#js-aggregate-base
               #js-error-messages
             .modal-footer#modal-footer
               if delegate

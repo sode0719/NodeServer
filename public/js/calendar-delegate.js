@@ -27,23 +27,41 @@ $(function () {
       }
     }],
     dayClick: function dayClick(date, allDay, jsEvent, view) {
+      var isYear = date._d.getFullYear() < new Date().getFullYear();
+      var isMonth = date._d.getMonth() < new Date().getMonth();
+      var isDate = date._d.getDate() < new Date().getDate();
+
+      if (isYear || isMonth || isDate) {
+        return false;
+      }
       fromReset();
       $('#js-delete').remove();
       var m = moment(date);
       $('.datepicker').val(m.format('YYYY-MM-DD'));
+      $('.datepicker').datepicker('setDate', new Date(date));
       $('#js-submit').text('登録');
       $('#js-delete').remove();
+      $('.js-dispatcher').prop('checked', false);
       validationReset();
       // モーダル表示
       $('#js-modal').modal('show');
     },
 
     eventClick: function eventClick(event) {
+      fromReset();
       $('#js-title').val(event.title).parent().find('label').addClass('active');
       $('#js-location').val(event.location).parent().find('label').addClass('active');
       $('#js-memo').val(event.memo).parent().find('label').addClass('active');
       $('#js-delete').remove();
       $('#modal-footer').append('<button class="btn btn-danger pull-left" id="js-delete" data-dismiss="modal">削除</button>');
+      if (event.dispatcher) {
+        $('.js-dispatcher').prop('checked', true);
+        $('#js-aggregate-base').append('<div class="md-form"><input id="js-aggregate" type="text" class="form-control"/><label for="js-aggregate">集合場所</label></div>');
+        $('#js-aggregate').val(event.aggregate).parent().find('label').addClass('active');
+      } else {
+        $('.js-dispatcher').prop('checked', false);
+        $('#js-aggregate-base').empty();
+      }
 
       $('#js-datepicker-start').val(event.start._i.split(' ')[0]);
       if (event.end === null) {
@@ -53,9 +71,21 @@ $(function () {
         $('#js-datepicker-end').val(event.end._i.split(' ')[0]);
       }
       ev = event;
-
+      $('.datepicker').datepicker('setDate', new Date(event.start._i.split(' ')[0]));
       $('#js-submit').text('更新');
       validationReset();
+
+      var date = new Date(event.start._i.split(' ')[0]);
+
+      var isYear = date.getFullYear() < new Date().getFullYear();
+      var isMonth = date.getMonth() < new Date().getMonth();
+      var isDate = date.getDate() < new Date().getDate();
+      if (isYear || isMonth || isDate) {
+        $('#js-submit').prop('disabled', true);
+      } else {
+        $('#js-submit').prop('disabled', false);
+      }
+
       // モーダル表示
       $('#js-modal').modal('show');
     }
@@ -66,6 +96,14 @@ $(function () {
     format: 'yyyy-mm-dd',
     language: 'ja',
     autoclose: true
+  });
+
+  $('.js-dispatcher').change(function () {
+    if ($(this).is(':checked')) {
+      $('#js-aggregate-base').append('<div class="md-form"><input id="js-aggregate" type="text" class="form-control"/><label for="js-aggregate">集合場所</label></div>');
+    } else {
+      $('#js-aggregate-base').empty();
+    }
   });
 
   // スケジュールモーダル
@@ -104,18 +142,36 @@ $(function () {
       err = true;
     }
 
+    if (Number(start.split('-')[2]) < Number(new Date().getDate())) {
+      validationAnimation('#js-datepicker-start');
+      validationErrorMessage('今日より前のスケジュールを登録することはできません');
+
+      err = true;
+    }
+
+    var aggregate = $('#js-aggregate').val();
+    if ($(this).is(':checked') && aggregate === '') {
+      validationAnimation('#js-aggregate');
+      validationErrorMessage('集合場所を入力してください');
+      err = true;
+    }
+
     if (err) {
       return false;
     }
 
     var location = $('#js-location').val();
     var memo = $('#js-memo').val();
+    var dispatcher = false;
+    if ($('.js-dispatcher:checked').val() === 'on') {
+      dispatcher = true;
+    }
 
     var text = $('#js-submit').text();
     if (text === '登録') {
-      addSchedule(title, start, end, location, memo);
+      addSchedule(title, start, end, location, memo, dispatcher, aggregate);
     } else if (text === '更新') {
-      updateSchedule(ev, title, start, end, location, memo);
+      updateSchedule(ev, title, start, end, location, memo, dispatcher, aggregate);
     }
   });
 
@@ -142,7 +198,7 @@ function validationReset() {
 }
 
 // 追加
-function addSchedule(title, start, end, location, memo) {
+function addSchedule(title, start, end, location, memo, dispatcher, aggregate) {
   $.ajax({
     url: './api/schedule/' + team_id,
     type: 'POST',
@@ -152,7 +208,9 @@ function addSchedule(title, start, end, location, memo) {
       start: start,
       end: end,
       location: location,
-      memo: memo
+      memo: memo,
+      dispatcher: dispatcher,
+      aggregate: aggregate
     }
   }).then(function (json) {
     if (json.success) {
@@ -180,7 +238,7 @@ function deleteSchedule(id) {
 }
 
 // 更新
-function updateSchedule(event, title, start, end, location, memo) {
+function updateSchedule(event, title, start, end, location, memo, dispatcher, aggregate) {
   $.ajax({
     url: './api/schedule',
     type: 'PUT',
@@ -192,7 +250,9 @@ function updateSchedule(event, title, start, end, location, memo) {
       start: start,
       end: end,
       location: location,
-      memo: memo
+      memo: memo,
+      dispatcher: dispatcher,
+      aggregate: aggregate
     }
   }).then(function (json) {
     if (json.success) {
@@ -204,6 +264,7 @@ function updateSchedule(event, title, start, end, location, memo) {
 }
 
 function fromReset() {
+  $('#js-aggregate-base').empty();
   $('#js-title').val('').parent().find('label').removeClass('active');
   $('#js-location').val('').parent().find('label').removeClass('active');
   $('#js-memo').val('').parent().find('label').removeClass('active');

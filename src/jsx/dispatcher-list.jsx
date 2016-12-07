@@ -25,11 +25,6 @@ const Complete = (props) => {
 const ListDispatcher = (props) => {
   const list = props.list.map(function(d, i) {
     function onClickDelete() {
-      //テストデータ削除不可
-      if(d._id === '583679dab91c84a5710be9af') {
-        console.log('no');
-        return false;
-      }
       $.ajax({
         url: 'http://localhost:3000/api/dispatcher/' + d._id,
         type: 'DELETE',

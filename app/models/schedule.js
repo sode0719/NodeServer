@@ -10,4 +10,6 @@ module.exports = mongoose.model('Schedule', new Schema({
   allDay: Boolean,
   location: String,
   memo: String,
+  dispatcher: Boolean,
+  aggregate: String,
 }));
