@@ -62,7 +62,7 @@ var ListDispatcher = function ListDispatcher(props) {
       React.createElement(
         "td",
         null,
-        d.date
+        d.date.split('T')[0]
       ),
       React.createElement(
         "td",
@@ -116,10 +116,15 @@ var Dispatcher = function (_React$Component) {
   _createClass(Dispatcher, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var d = new Date();
+      var m = Number(d.getMonth() + 1);
+      var month = m < 10 ? '0' + m : m;
+      var date = d.getFullYear() + '-' + month + '-' + d.getDate();
       $.ajax({
         url: 'http://localhost:3000/api/dispatcher/team/' + this.state.team_id,
         type: 'GET',
-        dataType: 'json'
+        dataType: 'json',
+        data: { date: date }
       }).then(function (json) {
         this.setState({ dispatcherList: json });
       }.bind(this), function () {

@@ -6,6 +6,7 @@ const log = require('../../util/logger');
 
 // MongoDB
 const User = require('../../models/user');
+const Children = require('../../models/children');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 apiRoutes.get('/:user_id', function(req, res) {
@@ -28,6 +29,24 @@ apiRoutes.get('/check/:user_id', function(req, res) {
     } else {
       res.json({find: false});
     }
+  });
+});
+
+apiRoutes.get('/person/:user_id', function(req, res) {
+  const person = [];
+  User.find({_id: req.params.user_id}, function(err, user) {
+    if(err) {
+      throw err;
+    }
+    person.push(user[0]);
+    Children.find({user_id: user[0]._id}, function(err, child) {
+      if(err) {
+        throw err;
+      }
+      person.push(child);
+
+      res.json(person);
+    });
   });
 });
 

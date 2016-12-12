@@ -11,5 +11,10 @@ module.exports = mongoose.model('confirm', new Schema({
   status: Number,
   car: Number,
   capacity: Number,
-  children: [],
+  children: [{
+    _id: Schema.Types.ObjectId,
+    name: String,
+    confirm: Boolean,
+    status: Number,
+  }],
 }));

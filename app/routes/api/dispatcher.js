@@ -10,6 +10,7 @@ const User = require('../../models/user');
 const Dispatcher = require('../../models/dispatcher');
 const Confirm = require('../../models/confirm');
 const ObjectId = require('mongoose').Types.ObjectId;
+const ISODate = require('mongoose').Types.ISODate;
 
 apiRoutes.post('/', function(req, res) {
   const team_id = new ObjectId(req.body.team_id);
@@ -96,7 +97,12 @@ apiRoutes.delete('/:dispatcher_id', function(req, res) {
 });
 
 apiRoutes.get('/team/:team_id', function(req, res) {
-  Dispatcher.find({team_id: ObjectId(req.params.team_id)}, function(err, team) {
+  const d = req.query.date.split('-');
+  const date = new Date(d[0], Number(d[1] - 1), d[2]);
+  Dispatcher.find({
+    team_id: ObjectId(req.params.team_id),
+    date: {$gt: date.toISOString()},
+  }, function(err, team) {
     if(err) {
       throw err;
     }
@@ -115,15 +121,51 @@ apiRoutes.get('/id/:id', function(req, res) {
   });
 });
 
-apiRoutes.get('/user/:dispatcher_id/:id', function(req, res) {
+apiRoutes.post('/confirm', function(req, res) {
+  const confirm = new Confirm(JSON.parse(req.body.confirm));
+
+  Confirm.findOne({
+    dispatcher_id: ObjectId(confirm.dispatcher_id),
+    user_id: ObjectId(confirm.user_id),
+  }, function(err, c) {
+    if(err) {
+      throw err;
+    }
+    // 新規
+    if(c.length === 0) {
+      confirm.save(function(err) {
+        if(err) {
+          throw err;
+        }
+      });
+    } else {
+      console.log(confirm.confirm);
+      c.confirm = confirm.confirm;
+      c.operator = confirm.operator;
+      c.status = confirm.status;
+      c.car = confirm.car;
+      c.capacity = confirm.capacity;
+      c.children = confirm.children;
+
+      c.save(function(err) {
+        if(err) {
+          throw err;
+        }
+      });
+    }
+
+    res.json({success: true});
+  });
+});
+
+apiRoutes.get('/user/:id', function(req, res) {
   Confirm.find({
-    dispatcher_id: ObjectId(req.body.dispatcher_id),
+    dispatcher_id: ObjectId(req.query.dispatcher_id),
     user_id: ObjectId(req.params.id),
   }, function(err, confirm) {
     if(err) {
       throw err;
     }
-
     res.json(confirm);
   });
 });

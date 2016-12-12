@@ -7,7 +7,7 @@ module.exports = mongoose.model('Dispatcher', new Schema({
   team_id: Schema.Types.ObjectId,
   isUse: Boolean,
   title: String,
-  date: String,
+  date: Date,
   aggregate: String,
   send: Number,
   destination: String,

@@ -43,7 +43,7 @@ const ListDispatcher = (props) => {
       <tr key={i}>
         <td><a href={'/dispatcher/' + d._id}>{d._id}</a></td>
         <td>{d.title}</td>
-        <td>{d.date}</td>
+        <td>{d.date.split('T')[0]}</td>
         <td>{d.aggregate}</td>
         <td>{d.destination}</td>
         <td><Complete length={d.divide.length} /></td>
@@ -69,10 +69,15 @@ class Dispatcher extends React.Component {
   }
 
   componentDidMount() {
+    const d = new Date();
+    const m = Number(d.getMonth() + 1);
+    const month = m  < 10 ? '0' + m : m;
+    const date = d.getFullYear() + '-' + month + '-' + d.getDate();
     $.ajax({
       url: 'http://localhost:3000/api/dispatcher/team/' + this.state.team_id,
       type: 'GET',
       dataType: 'json',
+      data: {date: date},
     }).then(
         function(json) {
           this.setState({dispatcherList: json});

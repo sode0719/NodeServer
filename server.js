@@ -151,7 +151,7 @@ apiRoutes.use(function(req, res, next) {
   // セッションかパラメータで認証
   // PCはセッション
   // Androidはパラメータ
-  const token = req.query.token || req.session.token;
+  const token = req.query.token || req.body.token || req.session.token;
 
   // console.log('query: ' + req.query.token);
   // console.log('session : ' + req.session.token);
