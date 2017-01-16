@@ -41,7 +41,7 @@ var Status = function Status(props) {
       'h4',
       { style: style.list },
       '\u65E5\u4ED8\uFF1A',
-      props.data.date
+      props.data.date ? props.data.date.split('T')[0] : ''
     ),
     React.createElement(
       'h4',

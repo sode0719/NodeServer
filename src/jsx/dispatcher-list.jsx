@@ -39,13 +39,20 @@ const ListDispatcher = (props) => {
         );
     }
 
+    const styles = {
+      a: {
+        display: 'block',
+        height: '100%',
+        width: '100%',
+      },
+    };
+
     return (
       <tr key={i}>
-        <td><a href={'/dispatcher/' + d._id}>{d._id}</a></td>
-        <td>{d.title}</td>
-        <td>{d.date.split('T')[0]}</td>
-        <td>{d.aggregate}</td>
-        <td>{d.destination}</td>
+        <td><a href={'/dispatcher/' + d._id} style={styles.a}>{d.title}</a></td>
+        <td><a href={'/dispatcher/' + d._id} style={styles.a}>{d.date.split('T')[0]}</a></td>
+        <td><a href={'/dispatcher/' + d._id} style={styles.a}>{d.aggregate}</a></td>
+        <td><a href={'/dispatcher/' + d._id} style={styles.a}>{d.destination}</a></td>
         <td><Complete length={d.divide.length} /></td>
         <td><Button color="primary" size="sm" onClick={onClickDelete}>削除</Button></td>
       </tr>
@@ -92,10 +99,9 @@ class Dispatcher extends React.Component {
     return (
       <div>
         <ModalAdd teamId={this.state.team_id}/>
-        <Table>
+        <Table hover>
           <thead>
             <tr>
-              <th>id</th>
               <th>タイトル</th>
               <th>日付</th>
               <th>集合場所</th>
@@ -188,7 +194,7 @@ class ModalAdd extends React.Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.toggle}>新規登録</Button>
+        <Button color="primary" onClick={this.toggle} style={{display: 'none'}}>新規登録</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>新規配車登録</ModalHeader>
           <ModalBody>

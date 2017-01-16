@@ -132,14 +132,13 @@ apiRoutes.post('/confirm', function(req, res) {
       throw err;
     }
     // 新規
-    if(c.length === 0) {
+    if(!c) {
       confirm.save(function(err) {
         if(err) {
           throw err;
         }
       });
     } else {
-      console.log(confirm.confirm);
       c.confirm = confirm.confirm;
       c.operator = confirm.operator;
       c.status = confirm.status;

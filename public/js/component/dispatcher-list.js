@@ -42,6 +42,14 @@ var ListDispatcher = function ListDispatcher(props) {
       });
     }
 
+    var styles = {
+      a: {
+        display: 'block',
+        height: '100%',
+        width: '100%'
+      }
+    };
+
     return React.createElement(
       "tr",
       { key: i },
@@ -50,29 +58,36 @@ var ListDispatcher = function ListDispatcher(props) {
         null,
         React.createElement(
           "a",
-          { href: '/dispatcher/' + d._id },
-          d._id
+          { href: '/dispatcher/' + d._id, style: styles.a },
+          d.title
         )
       ),
       React.createElement(
         "td",
         null,
-        d.title
+        React.createElement(
+          "a",
+          { href: '/dispatcher/' + d._id, style: styles.a },
+          d.date.split('T')[0]
+        )
       ),
       React.createElement(
         "td",
         null,
-        d.date.split('T')[0]
+        React.createElement(
+          "a",
+          { href: '/dispatcher/' + d._id, style: styles.a },
+          d.aggregate
+        )
       ),
       React.createElement(
         "td",
         null,
-        d.aggregate
-      ),
-      React.createElement(
-        "td",
-        null,
-        d.destination
+        React.createElement(
+          "a",
+          { href: '/dispatcher/' + d._id, style: styles.a },
+          d.destination
+        )
       ),
       React.createElement(
         "td",
@@ -140,18 +155,13 @@ var Dispatcher = function (_React$Component) {
         React.createElement(ModalAdd, { teamId: this.state.team_id }),
         React.createElement(
           Table,
-          null,
+          { hover: true },
           React.createElement(
             "thead",
             null,
             React.createElement(
               "tr",
               null,
-              React.createElement(
-                "th",
-                null,
-                "id"
-              ),
               React.createElement(
                 "th",
                 null,
@@ -286,7 +296,7 @@ var ModalAdd = function (_React$Component2) {
         null,
         React.createElement(
           Button,
-          { color: "primary", onClick: this.toggle },
+          { color: "primary", onClick: this.toggle, style: { display: 'none' } },
           "\u65B0\u898F\u767B\u9332"
         ),
         React.createElement(

@@ -16,7 +16,7 @@ const Status = (props) => {
     <Row style={style.inline}>
       <h4 style={style.list}>集合場所：{props.data.aggregate}</h4>
       <h4 style={style.list}>目的地：{props.data.destination}</h4>
-      <h4 style={style.list}>日付：{props.data.date}</h4>
+      <h4 style={style.list}>日付：{props.data.date ? props.data.date.split('T')[0] : ''}</h4>
       <h4 style={style.list}>返信：{props.reply} / {props.data.send}</h4>
     </Row>
   );
