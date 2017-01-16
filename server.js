@@ -85,6 +85,9 @@ app.use('/calendar', calendar);
 const dispatcher = require('./app/routes/dispatcher');
 app.use('/dispatcher', dispatcher);
 
+const score = require('./app/routes/score');
+app.use('/score', score);
+
 //--------------------------------------------------
 // APIルーティング
 //--------------------------------------------------
@@ -204,6 +207,9 @@ apiRoutes.use('/schedule', schedule);
 
 const dispat = require('./app/routes/api/dispatcher');
 apiRoutes.use('/dispatcher', dispat);
+
+const scoresheet = require('./app/routes/api/score');
+apiRoutes.use('/score', scoresheet);
 
 app.use('/api', apiRoutes);
 

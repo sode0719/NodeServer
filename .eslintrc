@@ -130,8 +130,6 @@
     "no-mixed-spaces-and-tabs": 2,
     //無駄なスペースを禁止
     "no-trailing-spaces": 2,
-    //プロパティが2つ以上ある中括弧は改行を強制
-    "object-curly-newline": [2, { "multiline": true }],
     //関数と括弧の間スペースを禁止
     "func-call-spacing": [2, "never"],
     //予約後のスペース

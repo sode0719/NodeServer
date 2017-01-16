@@ -396,47 +396,47 @@ var Register = function (_React$Component) {
             { type: 'select', color: this.state.carColor, onChange: this.handleChangeCar },
             React.createElement(
               'option',
-              null,
+              { value: '0' },
               '\u8ECA\u306E\u5B9A\u54E1\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '2' },
               '2'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '3' },
               '3'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '4' },
               '4'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '5' },
               '5'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '6' },
               '6'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '7' },
               '7'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '8' },
               '8'
             ),
             React.createElement(
               'option',
-              null,
+              { value: '9' },
               '9'
             )
           )
