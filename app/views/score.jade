@@ -1,0 +1,49 @@
+extends layout
+
+block title
+  title= title
+
+block css
+  link(rel='stylesheet', href='http://localhost:3000/css/dispatcher.css')
+  style.
+    table, td, th {
+    border: solid 1px #000000;
+    border-collapse: collapse;
+    }
+    .foul-back-color {
+    color: #ffffff;
+    background-color: #ff4444;
+    }
+    .timeout-back-color {
+    color: #ffffff;
+    background-color: #ffbb33;
+    }
+    .entry-back-color {
+    background-color: #33b5e5;
+    }
+    input[type="text"] {
+    height: 25px;
+    margin-bottom: 5px;
+    }
+    .quarter-section {
+    border-bottom: 2px solid #00C851;
+    }
+    .none {
+    display: none !important;
+    }
+
+block content
+  .container
+    if login
+      #js-id(style='display: none')= id
+      #score
+    else
+      .alert.alert-danger ログインしてください
+
+block script
+  script(src='https://npmcdn.com/react@15/dist/react-with-addons.js')
+  script(src='https://unpkg.com/react-dom@15/dist/react-dom.js')
+  script(src='https://npmcdn.com/reactstrap@2/dist/reactstrap.min.js')
+  if login
+    script(src="http://localhost:3000/js/common.js")
+    script(src="http://localhost:3000/js/score.js")

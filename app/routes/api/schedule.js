@@ -63,7 +63,7 @@ apiRoutes.post('/:team_id', function(req, res) {
         date.setDate(date.getDate() + i);
         const y = date.getFullYear();
         const m = date.getMonth() + 1;
-        const d = date.getDate();
+        const d = date.getDate() + 1;
         yyyymmdd = y + '-' + m + '-' + d;
 
         resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate);

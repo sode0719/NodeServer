@@ -268,15 +268,15 @@ class Register extends React.Component {
         <FormGroup color={this.state.carColor}>
           <Label><h4>車の定員</h4></Label>
           <Input type="select" color={this.state.carColor} onChange={this.handleChangeCar}>
-            <option>車の定員を選択してください</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
+            <option value="0">車の定員を選択してください</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
           </Input>
         </FormGroup>
         <Button color="primary" size="lg" block onClick={this.onClickSubmit}>登録</Button>
