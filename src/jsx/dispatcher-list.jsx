@@ -26,7 +26,7 @@ const ListDispatcher = (props) => {
   const list = props.list.map(function(d, i) {
     function onClickDelete() {
       $.ajax({
-        url: 'http://localhost:3000/api/dispatcher/' + d._id,
+        url: 'http://172.16.1.12:3000/api/dispatcher/' + d._id,
         type: 'DELETE',
         dataType: 'json',
       }).then(
@@ -54,9 +54,9 @@ const ListDispatcher = (props) => {
         <td><a href={'/dispatcher/' + d._id} style={styles.a}>{d.aggregate}</a></td>
         <td><a href={'/dispatcher/' + d._id} style={styles.a}>{d.destination}</a></td>
         <td><Complete length={d.divide.length} /></td>
-        <td><Button color="primary" size="sm" onClick={onClickDelete}>削除</Button></td>
       </tr>
     );
+    // <td><Button color="primary" size="sm" onClick={onClickDelete}>削除</Button></td>
   });
 
   return (
@@ -81,13 +81,19 @@ class Dispatcher extends React.Component {
     const month = m  < 10 ? '0' + m : m;
     const date = d.getFullYear() + '-' + month + '-' + d.getDate();
     $.ajax({
-      url: 'http://localhost:3000/api/dispatcher/team/' + this.state.team_id,
+      url: 'http://172.16.1.12:3000/api/dispatcher/team/' + this.state.team_id,
       type: 'GET',
       dataType: 'json',
       data: {date: date},
     }).then(
         function(json) {
-          this.setState({dispatcherList: json});
+          const data = json.filter((data) => {
+            return data.isUse === true;
+          });
+
+          this.setState({
+            dispatcherList: data,
+          });
         }.bind(this),
         function() {
           console.log('読み込み失敗');
@@ -107,7 +113,6 @@ class Dispatcher extends React.Component {
               <th>集合場所</th>
               <th>目的地</th>
               <th>配車完了</th>
-              <th>削除</th>
             </tr>
           </thead>
           <ListDispatcher list={this.state.dispatcherList} />
@@ -169,7 +174,7 @@ class ModalAdd extends React.Component {
     this.setState({date: $('.datepicker').val()}, () => {
       console.log(this.state);
       $.ajax({
-        url: 'http://localhost:3000/api/dispatcher/',
+        url: 'http://172.16.1.12:3000/api/dispatcher/',
         type: 'POST',
         dataType: 'json',
         data: {

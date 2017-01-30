@@ -32,7 +32,7 @@ var ListDispatcher = function ListDispatcher(props) {
   var list = props.list.map(function (d, i) {
     function onClickDelete() {
       $.ajax({
-        url: 'http://localhost:3000/api/dispatcher/' + d._id,
+        url: 'http://172.16.1.12:3000/api/dispatcher/' + d._id,
         type: 'DELETE',
         dataType: 'json'
       }).then(function (json) {
@@ -93,17 +93,9 @@ var ListDispatcher = function ListDispatcher(props) {
         "td",
         null,
         React.createElement(Complete, { length: d.divide.length })
-      ),
-      React.createElement(
-        "td",
-        null,
-        React.createElement(
-          Button,
-          { color: "primary", size: "sm", onClick: onClickDelete },
-          "\u524A\u9664"
-        )
       )
     );
+    // <td><Button color="primary" size="sm" onClick={onClickDelete}>削除</Button></td>
   });
 
   return React.createElement(
@@ -136,12 +128,18 @@ var Dispatcher = function (_React$Component) {
       var month = m < 10 ? '0' + m : m;
       var date = d.getFullYear() + '-' + month + '-' + d.getDate();
       $.ajax({
-        url: 'http://localhost:3000/api/dispatcher/team/' + this.state.team_id,
+        url: 'http://172.16.1.12:3000/api/dispatcher/team/' + this.state.team_id,
         type: 'GET',
         dataType: 'json',
         data: { date: date }
       }).then(function (json) {
-        this.setState({ dispatcherList: json });
+        var data = json.filter(function (data) {
+          return data.isUse === true;
+        });
+
+        this.setState({
+          dispatcherList: data
+        });
       }.bind(this), function () {
         console.log('読み込み失敗');
       });
@@ -186,11 +184,6 @@ var Dispatcher = function (_React$Component) {
                 "th",
                 null,
                 "\u914D\u8ECA\u5B8C\u4E86"
-              ),
-              React.createElement(
-                "th",
-                null,
-                "\u524A\u9664"
               )
             )
           ),
@@ -270,7 +263,7 @@ var ModalAdd = function (_React$Component2) {
       this.setState({ date: $('.datepicker').val() }, function () {
         console.log(_this3.state);
         $.ajax({
-          url: 'http://localhost:3000/api/dispatcher/',
+          url: 'http://172.16.1.12:3000/api/dispatcher/',
           type: 'POST',
           dataType: 'json',
           data: {

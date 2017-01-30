@@ -41,6 +41,7 @@ apiRoutes.post('/', function(req, res) {
     teamB: req.body.teamB,
     runningScore: req.body.runningScore,
     refereeData: req.body.refereeData,
+    undoList: req.body.undoList,
   });
 
   score.save(function(err) {

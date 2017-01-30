@@ -66,7 +66,7 @@ apiRoutes.post('/:team_id', function(req, res) {
         const d = date.getDate() + 1;
         yyyymmdd = y + '-' + m + '-' + d;
 
-        resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate);
+        resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate, true);
       }
 
       msg = 'がスケジュールに登録されました。配車希望の返信をしてください。';
@@ -132,23 +132,24 @@ apiRoutes.put('/', function(req, res) {
       }
 
       let msg = 'のスケジュールが更新されました。配車希望の返信をしてください。';
-      if(isDispatcher) {
-        const start = req.body.start;
-        const end = req.body.end;
+      const start = req.body.start;
+      const end = req.body.end;
 
-        const date = new Date(start);
-        let yyyymmdd = '';
-        for(let i = 0; i < getDiff(start, end); i++) {
-          date.setDate(date.getDate() + i);
-          const y = date.getFullYear();
-          const m = date.getMonth() + 1;
-          const d = date.getDate();
-          yyyymmdd = y + '-' + m + '-' + d;
+      const date = new Date(start);
+      let yyyymmdd = '';
+      for(let i = 0; i < getDiff(start, end); i++) {
+        date.setDate(date.getDate() + i);
+        const y = date.getFullYear();
+        const m = date.getMonth() + 1;
+        const d = date.getDate();
+        yyyymmdd = y + '-' + m + '-' + d;
 
-          resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate);
+        if(isDispatcher) {
+          resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate, true);
+        } else {
+          resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate, false);
+          msg = 'のスケジュールが更新されました。';
         }
-      } else {
-        msg = 'のスケジュールが更新されました。';
       }
 
       Dispatcher.findOne({schedule_id: schedule_id}, function(err, doc) {
@@ -198,13 +199,12 @@ function getDiff(start, end) {
   return daysDiff;
 }
 
-function resistDispatcher(team_id, title, date, destination, schedule_id, aggregate) {
+function resistDispatcher(team_id, title, date, destination, schedule_id, aggregate, isUse) {
   User.find({team_id: team_id}, function(err, users) {
     if(err) {
       throw err;
     }
     Dispatcher.findOne({schedule_id: schedule_id}, function(err, doc) {
-      console.log(doc);
       if(doc === null) {
         const dispatcher = new Dispatcher({
           schedule_id: schedule_id,

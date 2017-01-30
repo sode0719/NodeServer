@@ -55,7 +55,7 @@ const ListPerson = (props) => {
 
 const Car = (props) => {
   return (
-    <ul className="list-group sortable js-car" data-owner={props.owner}>
+    <ul className="list-group sortable js-car" data-owner={props.owner} data-name={props.operator}>
       <li className="list-group-item list-group-item-info sortable-stop sortable-disable" data-capacity={props.capacity}>{props.operator} さんの車 <span className="tag tag-default tag-pill pull-right js-capacity">0/{props.capacity}</span></li>
     </ul>
   );
@@ -114,7 +114,7 @@ class Dispatcher extends React.Component {
 
   componentWillMount() {
     $.ajax({
-      url: 'http://localhost:3000/api/dispatcher/' + this.state.id,
+      url: 'http://172.16.1.12:3000/api/dispatcher/' + this.state.id,
       type: 'GET',
       dataType: 'json',
     }).then(
@@ -131,7 +131,7 @@ class Dispatcher extends React.Component {
           });
 
           $.ajax({
-            url: 'http://localhost:3000/api/dispatcher/id/' + this.state.id,
+            url: 'http://172.16.1.12:3000/api/dispatcher/id/' + this.state.id,
             type: 'GET',
             dataType: 'json',
           }).then(
@@ -317,6 +317,7 @@ class Dispatcher extends React.Component {
           const divide = [];
           let capacity = 0;
           let owner = '';
+          let ownerName = '';
           const length = $(this).find('.list-group-item').length;
           $(this).find('.list-group-item').each(function(j) {
             if(j !== 0) {
@@ -337,11 +338,13 @@ class Dispatcher extends React.Component {
               const count = $(this).text().split('/');
               capacity = count[count.length - 1];
               owner = $(this).parent().attr('data-owner');
+              ownerName = $(this).parent().attr('data-name');
             }
           });
 
           temp.push({
             owner_id: owner,
+            owner_name: ownerName,
             capacity: capacity,
             divide: divide,
           });
@@ -356,7 +359,7 @@ class Dispatcher extends React.Component {
     });
 
     $.ajax({
-      url: 'http://localhost:3000/api/dispatcher/' + this.state.id,
+      url: 'http://172.16.1.12:3000/api/dispatcher/' + this.state.id,
       type: 'PUT',
       dataType: 'json',
       data: {divide: JSON.stringify(dispatcher)},
@@ -429,7 +432,7 @@ function getDispatcher() {
     let count = -1;
     let operator = false;
     $(this).children('li').each(function(i) {
-      if($(this).hasClass('js-operator')) {
+      if(count === 0 && $(this).hasClass('js-operator')) {
         operator = true;
       }
       count++;

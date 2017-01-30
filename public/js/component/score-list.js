@@ -24,7 +24,7 @@ var ListScore = function ListScore(props) {
   var list = props.list.map(function (s, i) {
     function onClickDelete() {
       $.ajax({
-        url: 'http://localhost:3000/api/score/' + s._id,
+        url: 'http://172.16.1.12:3000/api/score/' + s._id,
         type: 'DELETE',
         dataType: 'json'
       }).then(function (json) {
@@ -110,7 +110,7 @@ var Score = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       $.ajax({
-        url: 'http://localhost:3000/api/score/team/' + this.state.team_id,
+        url: 'http://172.16.1.12:3000/api/score/team/' + this.state.team_id,
         type: 'GET',
         dataType: 'json'
       }).then(function (json) {

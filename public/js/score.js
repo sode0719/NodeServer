@@ -7,69 +7,69 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
-	
+
 	var _reactDom2 = _interopRequireDefault(_reactDom);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	var _config = __webpack_require__(/*! ../config */ 267);
-	
+
 	var _config2 = _interopRequireDefault(_config);
-	
+
 	var _header = __webpack_require__(/*! ./header */ 268);
-	
+
 	var _header2 = _interopRequireDefault(_header);
-	
+
 	var _teaminfo = __webpack_require__(/*! ./teaminfo */ 269);
-	
+
 	var _teaminfo2 = _interopRequireDefault(_teaminfo);
-	
+
 	var _runningscore = __webpack_require__(/*! ./runningscore */ 271);
-	
+
 	var _runningscore2 = _interopRequireDefault(_runningscore);
-	
+
 	var _modalScore = __webpack_require__(/*! ./modal/modal-score */ 272);
-	
+
 	var _modalScore2 = _interopRequireDefault(_modalScore);
-	
+
 	var _modalFreethrow = __webpack_require__(/*! ./modal/modal-freethrow */ 273);
-	
+
 	var _modalFreethrow2 = _interopRequireDefault(_modalFreethrow);
-	
+
 	var _modalFoul = __webpack_require__(/*! ./modal/modal-foul */ 274);
-	
+
 	var _modalFoul2 = _interopRequireDefault(_modalFoul);
-	
+
 	var _modalQuarter = __webpack_require__(/*! ./modal/modal-quarter */ 275);
-	
+
 	var _modalQuarter2 = _interopRequireDefault(_modalQuarter);
-	
+
 	var _modalChange = __webpack_require__(/*! ./modal/modal-change */ 276);
-	
+
 	var _modalChange2 = _interopRequireDefault(_modalChange);
-	
+
 	var _modalUndo = __webpack_require__(/*! ./modal/modal-undo */ 277);
-	
+
 	var _modalUndo2 = _interopRequireDefault(_modalUndo);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var status = {
 	  TIMEOUT: 1,
 	  POINT1: 2,
@@ -78,15 +78,15 @@ webpackJsonp([3],{
 	  CHANGE: 5,
 	  ENTRY: 6
 	};
-	
+
 	var Score = function (_React$Component) {
 	  _inherits(Score, _React$Component);
-	
+
 	  function Score(props) {
 	    _classCallCheck(this, Score);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Score.__proto__ || Object.getPrototypeOf(Score)).call(this, props));
-	
+
 	    var d = new Date();
 	    var date = d.getFullYear() + '-' + Number(d.getMonth() + 1) + '-' + d.getDate();
 	    _this.state = {
@@ -110,10 +110,10 @@ webpackJsonp([3],{
 	        thirty: ''
 	      }
 	    };
-	
+
 	    // メインのイベント
 	    _this.onClickSave = _this.onClickSave.bind(_this);
-	
+
 	    // 子要素のイベント
 	    // ボタン
 	    _this.onClickTimeOut = _this.onClickTimeOut.bind(_this);
@@ -122,25 +122,25 @@ webpackJsonp([3],{
 	    _this.onChildrenClickSubmitFreeThrow = _this.onChildrenClickSubmitFreeThrow.bind(_this);
 	    _this.onChildrenClickSubmitFoul = _this.onChildrenClickSubmitFoul.bind(_this);
 	    _this.onChildrenClickSubmitUndo = _this.onChildrenClickSubmitUndo.bind(_this);
-	
+
 	    // テキストボックス
 	    _this.onChildrenBlurTeamName = _this.onChildrenBlurTeamName.bind(_this);
 	    _this.onChildrenBlurHeader = _this.onChildrenBlurHeader.bind(_this);
-	
+
 	    _this.onChildrenClickSubmitChange = _this.onChildrenClickSubmitChange.bind(_this);
-	
+
 	    _this.undo = _this.undo.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(Score, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      var _this2 = this;
-	
+
 	      if ($('#js-id').text()) {
 	        console.log($.ajax({
-	          url: 'http://localhost:3000/api/score/' + $('#js-id').text(),
+	          url: 'http://172.16.1.12:3000/api/score/' + $('#js-id').text(),
 	          type: 'GET',
 	          dataType: 'json'
 	        }).then(function (json) {
@@ -154,6 +154,7 @@ webpackJsonp([3],{
 	            teamB: JSON.parse(json[0].teamB),
 	            runningScore: JSON.parse(json[0].runningScore),
 	            refereeData: JSON.parse(json[0].refereeData),
+	            undoList: JSON.parse(json[0].undoList),
 	            read: true
 	          });
 	        }.bind(this), function () {
@@ -236,7 +237,7 @@ webpackJsonp([3],{
 	          foul: 0,
 	          entry: []
 	        }];
-	
+
 	        var memberB = [{
 	          name: 'Btest1',
 	          No: 4,
@@ -313,7 +314,7 @@ webpackJsonp([3],{
 	          foul: 0,
 	          entry: []
 	        }];
-	
+
 	        var runningScore = [];
 	        for (var i = 0; i <= 120; i++) {
 	          runningScore.push({
@@ -321,7 +322,7 @@ webpackJsonp([3],{
 	            B: null
 	          });
 	        }
-	
+
 	        this.setState({
 	          teamA: {
 	            name: '',
@@ -359,9 +360,9 @@ webpackJsonp([3],{
 	        });
 	      }
 	    }
-	
+
 	    // タイムアウト
-	
+
 	  }, {
 	    key: 'onClickTimeOut',
 	    value: function onClickTimeOut(e) {
@@ -370,27 +371,27 @@ webpackJsonp([3],{
 	        _status: status.TIMEOUT,
 	        team: e
 	      });
-	
+
 	      this.setState({
 	        undoList: undoList
 	      });
-	
+
 	      this.undo();
 	    }
-	
+
 	    // クォーター
-	
+
 	  }, {
 	    key: 'onChildrenClickSubmitQuarter',
 	    value: function onChildrenClickSubmitQuarter(data) {
 	      var _this3 = this;
-	
+
 	      if (this.state.quarter === 4) {
 	        return false;
 	      }
-	
+
 	      var newQuarter = Number(this.state.quarter) + 1;
-	
+
 	      var quarterScore = this.state.quarterScore;
 	      quarterScore[this.state.quarter - 1] = {
 	        A: this.state.teamA.score,
@@ -407,22 +408,22 @@ webpackJsonp([3],{
 	          undoList.push({ _status: status.ENTRY, team: 'A', player: teamA.member[data.teamA[i]].No, quarter: newQuarter });
 	          // teamA.member[data.teamA[i]].entry.push(newQuarter);
 	        }
-	
+
 	        var teamB = _this3.state.teamB;
 	        teamB.entry[newQuarter - 1] = data.teamB;
 	        for (var _i = 0; _i < data.teamB.length; _i++) {
 	          undoList.push({ _status: status.ENTRY, team: 'B', player: teamB.member[data.teamB[_i]].No, quarter: newQuarter });
 	          // teamB.member[data.teamB[i]].entry.push(newQuarter);
 	        }
-	
+
 	        _this3.setState({ undoList: undoList }, function () {
 	          _this3.undo();
 	        });
 	      });
 	    }
-	
+
 	    // スコア
-	
+
 	  }, {
 	    key: 'onChildrenClickSubmitScore',
 	    value: function onChildrenClickSubmitScore(data) {
@@ -432,16 +433,16 @@ webpackJsonp([3],{
 	        team: data.team,
 	        player: data.player
 	      });
-	
+
 	      this.setState({
 	        undoList: undoList
 	      });
-	
+
 	      this.undo();
 	    }
-	
+
 	    // フリースロー
-	
+
 	  }, {
 	    key: 'onChildrenClickSubmitFreeThrow',
 	    value: function onChildrenClickSubmitFreeThrow(data) {
@@ -459,16 +460,16 @@ webpackJsonp([3],{
 	          player: data.player
 	        });
 	      }
-	
+
 	      this.setState({
 	        undoList: undoList
 	      });
-	
+
 	      this.undo();
 	    }
-	
+
 	    // ファウル
-	
+
 	  }, {
 	    key: 'onChildrenClickSubmitFoul',
 	    value: function onChildrenClickSubmitFoul(data) {
@@ -479,16 +480,16 @@ webpackJsonp([3],{
 	        player: data.player,
 	        quarter: this.state.quarter
 	      });
-	
+
 	      this.setState({
 	        undoList: undoList
 	      });
-	
+
 	      this.undo();
 	    }
-	
+
 	    // 選手交代
-	
+
 	  }, {
 	    key: 'onChildrenClickSubmitChange',
 	    value: function onChildrenClickSubmitChange(data) {
@@ -500,37 +501,37 @@ webpackJsonp([3],{
 	        out: data.out,
 	        quarter: this.state.quarter
 	      });
-	
+
 	      this.setState({
 	        undoList: undoList
 	      });
-	
+
 	      this.undo();
 	    }
-	
+
 	    // チーム名取得
-	
+
 	  }, {
 	    key: 'onChildrenBlurTeamName',
 	    value: function onChildrenBlurTeamName(data) {
 	      if (data.team === 'A') {
 	        var teamA = this.state.teamA;
-	
+
 	        this.setState({ teamA: getTeamName(teamA) });
 	      } else {
 	        var teamB = this.state.teamB;
-	
+
 	        this.setState({ teamB: getTeamName(teamB) });
 	      }
-	
+
 	      function getTeamName(team) {
 	        team.name = data.teamName;
 	        return team;
 	      }
 	    }
-	
+
 	    // ヘッダーのテキスト取得
-	
+
 	  }, {
 	    key: 'onChildrenBlurHeader',
 	    value: function onChildrenBlurHeader(data) {
@@ -571,12 +572,12 @@ webpackJsonp([3],{
 	      this.setState({
 	        undoList: data.undoList
 	      });
-	
+
 	      this.undo();
 	    }
-	
+
 	    // 保存
-	
+
 	  }, {
 	    key: 'onClickSave',
 	    value: function onClickSave() {
@@ -589,9 +590,10 @@ webpackJsonp([3],{
 	        teamA: JSON.stringify(this.state.teamA),
 	        teamB: JSON.stringify(this.state.teamB),
 	        runningScore: JSON.stringify(this.state.runningScore),
-	        refereeData: JSON.stringify(this.state.refereeData)
+	        refereeData: JSON.stringify(this.state.refereeData),
+	        undoList: JSON.stringify(this.state.undoList)
 	      };
-	
+
 	      window.localStorage.setItem(window.localStorage.length, JSON.stringify(data));
 	      alert('保存しました。');
 	    }
@@ -599,10 +601,10 @@ webpackJsonp([3],{
 	    key: 'undo',
 	    value: function undo() {
 	      var _this4 = this;
-	
+
 	      var teamA = this.state.teamA;
 	      var teamB = this.state.teamB;
-	
+
 	      var emptyRunningScore = [];
 	      for (var i = 0; i <= 120; i++) {
 	        emptyRunningScore.push({
@@ -610,7 +612,7 @@ webpackJsonp([3],{
 	          B: null
 	        });
 	      }
-	
+
 	      this.setState({
 	        teamA: reset(teamA),
 	        teamB: reset(teamB),
@@ -620,7 +622,7 @@ webpackJsonp([3],{
 	          exec(_this4.state.undoList[_i2], _this4);
 	        }
 	      });
-	
+
 	      // チームデータ初期化
 	      function reset(team) {
 	        team.timeout = 0;
@@ -633,20 +635,20 @@ webpackJsonp([3],{
 	        }
 	        return team;
 	      }
-	
+
 	      // undoList実行
 	      function exec(data, t) {
 	        if (data._status === status.TIMEOUT) {
 	          // タイムアウト
 	          if (data.team === 'A' && t.state.teamA.timeout < 4) {
 	            var team = t.state.teamA;
-	
+
 	            t.setState({
 	              teamA: setTimeOut(team)
 	            });
 	          } else if (data.team === 'B' && t.state.teamB.timeout < 4) {
 	            var _team = t.state.teamB;
-	
+
 	            t.setState({
 	              teamB: setTimeOut(_team)
 	            });
@@ -656,10 +658,10 @@ webpackJsonp([3],{
 	          if (data.team === 'A') {
 	            var _teamA = t.state.teamA;
 	            _teamA.score = Number(_teamA.score) + 2;
-	
+
 	            var temp = t.state.runningScore;
 	            temp[_teamA.score - 1].A = data.player;
-	
+
 	            t.setState({
 	              runningScore: temp,
 	              teamA: _teamA
@@ -667,10 +669,10 @@ webpackJsonp([3],{
 	          } else {
 	            var _teamB = t.state.teamB;
 	            _teamB.score = Number(_teamB.score) + 2;
-	
+
 	            var _temp = t.state.runningScore;
 	            _temp[_teamB.score - 1].B = data.player;
-	
+
 	            t.setState({
 	              runningScore: _temp,
 	              teamB: _teamB
@@ -681,10 +683,10 @@ webpackJsonp([3],{
 	          if (data.team === 'A') {
 	            var _teamA2 = t.state.teamA;
 	            _teamA2.score = Number(_teamA2.score) + 1;
-	
+
 	            var _temp2 = t.state.runningScore;
 	            _temp2[_teamA2.score - 1].A = data.player;
-	
+
 	            t.setState({
 	              runningScore: _temp2,
 	              teamA: _teamA2
@@ -692,10 +694,10 @@ webpackJsonp([3],{
 	          } else {
 	            var _teamB2 = t.state.teamB;
 	            _teamB2.score = Number(_teamB2.score) + 1;
-	
+
 	            var _temp3 = t.state.runningScore;
 	            _temp3[_teamB2.score - 1].B = data.player;
-	
+
 	            t.setState({
 	              runningScore: _temp3,
 	              teamB: _teamB2
@@ -705,24 +707,24 @@ webpackJsonp([3],{
 	          // ファウル
 	          if (data.team === 'A') {
 	            var _teamA3 = t.state.teamA;
-	
+
 	            t.setState({ teamA: setFoulPlayer(_teamA3, data, t) });
 	          } else {
 	            var _teamB3 = t.state.teamB;
-	
+
 	            t.setState({ teamB: setFoulPlayer(_teamB3, data, t) });
 	          }
 	        } else if (data._status === status.CHANGE) {
 	          // 選手交代
 	          if (data.team === 'A') {
 	            var _teamA4 = t.state.teamA;
-	
+
 	            t.setState({
 	              teamA: ChangePlayer(_teamA4, data, t)
 	            });
 	          } else {
 	            var _teamB4 = t.state.teamB;
-	
+
 	            t.setState({
 	              teamB: ChangePlayer(_teamB4, data, t)
 	            });
@@ -735,19 +737,19 @@ webpackJsonp([3],{
 	            });
 	          } else {
 	            var _teamB5 = t.state.teamB;
-	
+
 	            t.setState({
 	              teamB: setEntryPlayer(_teamB5, data, t)
 	            });
 	          }
 	        }
 	      }
-	
+
 	      function setTimeOut(team) {
 	        team.timeout = Number(team.timeout) + 1;
 	        return team;
 	      }
-	
+
 	      function setFoulPlayer(team, data, t) {
 	        var quarter = data.quarter - 1;
 	        for (var _i4 = 0; _i4 < team.member.length; _i4++) {
@@ -757,10 +759,10 @@ webpackJsonp([3],{
 	          }
 	        }
 	        team.teamFoul[quarter] = Number(team.teamFoul[quarter]) + 1;
-	
+
 	        return team;
 	      }
-	
+
 	      function ChangePlayer(team, data, t) {
 	        var quarter = data.quarter - 1;
 	        // メンバーの中から入場する選手を探す
@@ -775,7 +777,7 @@ webpackJsonp([3],{
 	            }
 	          }
 	        }
-	
+
 	        // メンバーの中から退場する選手を探す
 	        for (var _i6 = 0; _i6 < team.member.length; _i6++) {
 	          // 退場する人と一致するまで
@@ -790,10 +792,10 @@ webpackJsonp([3],{
 	            }
 	          }
 	        }
-	
+
 	        return team;
 	      }
-	
+
 	      function setEntryPlayer(team, data, t) {
 	        var quarter = data.quarter - 1;
 	        // メンバーの中から選手を探す
@@ -807,7 +809,7 @@ webpackJsonp([3],{
 	            break;
 	          }
 	        }
-	
+
 	        return team;
 	      }
 	    }
@@ -895,10 +897,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return Score;
 	}(_react2.default.Component);
-	
+
 	_reactDom2.default.render(_react2.default.createElement(Score, null), document.getElementById('score'));
 
 /***/ },
@@ -910,44 +912,44 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var Header = function (_React$Component) {
 	  _inherits(Header, _React$Component);
-	
+
 	  function Header(props) {
 	    _classCallCheck(this, Header);
-	
+
 	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
-	
+
 	    _this.state = {
 	      date: _this.props.date,
 	      quarterScore: _this.props.quarterScore
 	    };
-	
+
 	    _this.onBlur = _this.onBlur.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(Header, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {}
@@ -1208,10 +1210,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return Header;
 	}(_react2.default.Component);
-	
+
 	exports.default = Header;
 
 /***/ },
@@ -1223,47 +1225,47 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	var _teamfoul = __webpack_require__(/*! ./teamfoul */ 270);
-	
+
 	var _teamfoul2 = _interopRequireDefault(_teamfoul);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var TeamInfo = function (_React$Component) {
 	  _inherits(TeamInfo, _React$Component);
-	
+
 	  function TeamInfo(props) {
 	    _classCallCheck(this, TeamInfo);
-	
+
 	    var _this = _possibleConstructorReturn(this, (TeamInfo.__proto__ || Object.getPrototypeOf(TeamInfo)).call(this, props));
-	
+
 	    _this.state = {
 	      teamName: ''
 	    };
-	
+
 	    _this.onBlur = _this.onBlur.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(TeamInfo, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {}
@@ -1271,7 +1273,7 @@ webpackJsonp([3],{
 	    key: 'onBlur',
 	    value: function onBlur(e) {
 	      var _this2 = this;
-	
+
 	      this.setState({
 	        teamName: e.target.value
 	      }, function () {
@@ -1301,7 +1303,7 @@ webpackJsonp([3],{
 	          marginRight: 'auto'
 	        }
 	      };
-	
+
 	      var list = this.props.member.map(function (m, i) {
 	        return _react2.default.createElement(
 	          'tr',
@@ -1332,7 +1334,7 @@ webpackJsonp([3],{
 	          _react2.default.createElement('td', { className: m.foul > 4 ? 'foul-back-color' : '', style: styles.size })
 	        );
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        { style: styles.wrapper },
@@ -1505,10 +1507,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return TeamInfo;
 	}(_react2.default.Component);
-	
+
 	exports.default = TeamInfo;
 
 /***/ },
@@ -1520,39 +1522,39 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var TeamFoul = function (_React$Component) {
 	  _inherits(TeamFoul, _React$Component);
-	
+
 	  function TeamFoul(props) {
 	    _classCallCheck(this, TeamFoul);
-	
+
 	    var _this = _possibleConstructorReturn(this, (TeamFoul.__proto__ || Object.getPrototypeOf(TeamFoul)).call(this, props));
-	
+
 	    _this.state = {};
 	    return _this;
 	  }
-	
+
 	  _createClass(TeamFoul, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {}
@@ -1560,7 +1562,7 @@ webpackJsonp([3],{
 	    key: 'render',
 	    value: function render() {
 	      var styles = {};
-	
+
 	      var Quarter = function Quarter(props) {
 	        return _react2.default.createElement(
 	          'table',
@@ -1629,7 +1631,7 @@ webpackJsonp([3],{
 	          )
 	        );
 	      };
-	
+
 	      return _react2.default.createElement(
 	        _reactstrap.Row,
 	        null,
@@ -1650,10 +1652,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return TeamFoul;
 	}(_react2.default.Component);
-	
+
 	exports.default = TeamFoul;
 
 /***/ },
@@ -1665,36 +1667,36 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var RunningScore = function (_React$Component) {
 	  _inherits(RunningScore, _React$Component);
-	
+
 	  function RunningScore(props) {
 	    _classCallCheck(this, RunningScore);
-	
+
 	    return _possibleConstructorReturn(this, (RunningScore.__proto__ || Object.getPrototypeOf(RunningScore)).call(this, props));
 	  }
-	
+
 	  _createClass(RunningScore, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {}
@@ -1702,7 +1704,7 @@ webpackJsonp([3],{
 	    key: 'render',
 	    value: function render() {
 	      var styles = {};
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -1733,20 +1735,20 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return RunningScore;
 	}(_react2.default.Component);
-	
+
 	exports.default = RunningScore;
-	
+
 	var ScoreLine = function (_React$Component2) {
 	  _inherits(ScoreLine, _React$Component2);
-	
+
 	  function ScoreLine(props) {
 	    _classCallCheck(this, ScoreLine);
-	
+
 	    var _this2 = _possibleConstructorReturn(this, (ScoreLine.__proto__ || Object.getPrototypeOf(ScoreLine)).call(this, props));
-	
+
 	    var countList = [];
 	    for (var i = _this2.props.count - 1; i < _this2.props.count + 39; i++) {
 	      countList.push({
@@ -1755,7 +1757,7 @@ webpackJsonp([3],{
 	        teamB: _this2.props.runningScore[i].B
 	      });
 	    }
-	
+
 	    _this2.state = {
 	      runningScore: _this2.props.runningScore,
 	      quarterScore: _this2.props.quarterScore,
@@ -1763,7 +1765,7 @@ webpackJsonp([3],{
 	    };
 	    return _this2;
 	  }
-	
+
 	  _createClass(ScoreLine, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps() {
@@ -1775,7 +1777,7 @@ webpackJsonp([3],{
 	          teamB: this.props.runningScore[i].B
 	        });
 	      }
-	
+
 	      this.setState({
 	        runningScore: this.props.runningScore,
 	        countList: countList
@@ -1794,13 +1796,13 @@ webpackJsonp([3],{
 	          height: '19px'
 	        }
 	      };
-	
+
 	      var quarterScore = this.state.quarterScore;
-	
+
 	      var list = this.state.countList.map(function (c, i) {
 	        var sectionA = false;
 	        var sectionB = false;
-	
+
 	        for (var j = 0; j < quarterScore.length; j++) {
 	          if (quarterScore[j].A === c.count) {
 	            sectionA = true;
@@ -1809,7 +1811,7 @@ webpackJsonp([3],{
 	            sectionB = true;
 	          }
 	        }
-	
+
 	        return _react2.default.createElement(
 	          'tr',
 	          { key: i },
@@ -1835,7 +1837,7 @@ webpackJsonp([3],{
 	          )
 	        );
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'table',
 	        { className: 'text-xs-center', style: styles.ma },
@@ -1865,7 +1867,7 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ScoreLine;
 	}(_react2.default.Component);
 
@@ -1878,48 +1880,48 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var ModalScore = function (_React$Component) {
 	  _inherits(ModalScore, _React$Component);
-	
+
 	  function ModalScore(props) {
 	    _classCallCheck(this, ModalScore);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ModalScore.__proto__ || Object.getPrototypeOf(ModalScore)).call(this, props));
-	
+
 	    _this.state = {
 	      modal: false,
 	      team: _this.props.team,
 	      member: _this.props.member,
 	      select: ''
 	    };
-	
+
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.onClickSubmit = _this.onClickSubmit.bind(_this);
 	    _this.onChangeSelect = _this.onChangeSelect.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(ModalScore, [{
 	    key: 'toggle',
 	    value: function toggle() {
@@ -1940,13 +1942,13 @@ webpackJsonp([3],{
 	      if (this.state.select === '') {
 	        return false;
 	      }
-	
+
 	      // 親に送る
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: this.state.select
 	      });
-	
+
 	      this.setState({
 	        modal: !this.state.modal,
 	        select: ''
@@ -1970,10 +1972,10 @@ webpackJsonp([3],{
 	            );
 	          }
 	        }
-	
+
 	        return null;
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -2035,10 +2037,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ModalScore;
 	}(_react2.default.Component);
-	
+
 	exports.default = ModalScore;
 
 /***/ },
@@ -2050,35 +2052,35 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var ModalFreeThrow = function (_React$Component) {
 	  _inherits(ModalFreeThrow, _React$Component);
-	
+
 	  function ModalFreeThrow(props) {
 	    _classCallCheck(this, ModalFreeThrow);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ModalFreeThrow.__proto__ || Object.getPrototypeOf(ModalFreeThrow)).call(this, props));
-	
+
 	    _this.state = {
 	      modal: false,
 	      team: _this.props.team,
@@ -2086,14 +2088,14 @@ webpackJsonp([3],{
 	      select: '',
 	      checkbox: false
 	    };
-	
+
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.onChangeSelect = _this.onChangeSelect.bind(_this);
 	    _this.onChangeCheck = _this.onChangeCheck.bind(_this);
 	    _this.onClickSubmit = _this.onClickSubmit.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(ModalFreeThrow, [{
 	    key: 'toggle',
 	    value: function toggle() {
@@ -2121,14 +2123,14 @@ webpackJsonp([3],{
 	      if (this.state.select === '') {
 	        return false;
 	      }
-	
+
 	      // 親に送る
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: this.state.select,
 	        checkbox: this.state.checkbox
 	      });
-	
+
 	      this.setState({
 	        modal: !this.state.modal,
 	        select: '',
@@ -2153,10 +2155,10 @@ webpackJsonp([3],{
 	            );
 	          }
 	        }
-	
+
 	        return null;
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -2229,10 +2231,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ModalFreeThrow;
 	}(_react2.default.Component);
-	
+
 	exports.default = ModalFreeThrow;
 
 /***/ },
@@ -2244,48 +2246,48 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var ModalFoul = function (_React$Component) {
 	  _inherits(ModalFoul, _React$Component);
-	
+
 	  function ModalFoul(props) {
 	    _classCallCheck(this, ModalFoul);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ModalFoul.__proto__ || Object.getPrototypeOf(ModalFoul)).call(this, props));
-	
+
 	    _this.state = {
 	      modal: false,
 	      team: _this.props.team,
 	      member: _this.props.member,
 	      select: ''
 	    };
-	
+
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.onClickSubmit = _this.onClickSubmit.bind(_this);
 	    _this.onChangeSelect = _this.onChangeSelect.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(ModalFoul, [{
 	    key: 'toggle',
 	    value: function toggle() {
@@ -2306,13 +2308,13 @@ webpackJsonp([3],{
 	      if (this.state.select === '') {
 	        return false;
 	      }
-	
+
 	      // 親に送る
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: this.state.select
 	      });
-	
+
 	      this.setState({
 	        modal: !this.state.modal,
 	        select: ''
@@ -2336,10 +2338,10 @@ webpackJsonp([3],{
 	            );
 	          }
 	        }
-	
+
 	        return null;
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -2401,10 +2403,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ModalFoul;
 	}(_react2.default.Component);
-	
+
 	exports.default = ModalFoul;
 
 /***/ },
@@ -2416,35 +2418,35 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var ModalQuarter = function (_React$Component) {
 	  _inherits(ModalQuarter, _React$Component);
-	
+
 	  function ModalQuarter(props) {
 	    _classCallCheck(this, ModalQuarter);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ModalQuarter.__proto__ || Object.getPrototypeOf(ModalQuarter)).call(this, props));
-	
+
 	    _this.state = {
 	      modal: false,
 	      entryA: [],
@@ -2454,20 +2456,20 @@ webpackJsonp([3],{
 	      errorA: '0人',
 	      errorB: '0人'
 	    };
-	
+
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.onClickSubmit = _this.onClickSubmit.bind(_this);
 	    _this.onChangeCheck = _this.onChangeCheck.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(ModalQuarter, [{
 	    key: 'toggle',
 	    value: function toggle() {
 	      if (this.props.quarter === 4) {
 	        return false;
 	      }
-	
+
 	      this.setState({
 	        modal: !this.state.modal,
 	        checkedA: 0,
@@ -2482,21 +2484,21 @@ webpackJsonp([3],{
 	    key: 'onChangeCheck',
 	    value: function onChangeCheck(e) {
 	      var _this2 = this;
-	
+
 	      function clone(obj) {
 	        var newObj = {};
 	        for (var key in obj) {
 	          newObj[key] = obj[key];
 	        }
-	
+
 	        return newObj;
 	      }
-	
+
 	      var isCheck = false;
 	      if (e.target.checked) {
 	        isCheck = true;
 	      }
-	
+
 	      var num = e.target.value.split('-')[1];
 	      if (e.target.value.split('-')[0] === 'A') {
 	        var temp = [];
@@ -2507,7 +2509,7 @@ webpackJsonp([3],{
 	            }
 	          }
 	        }
-	
+
 	        this.setState({
 	          entryA: isCheck ? this.state.entryA.concat(num) : temp,
 	          checkedA: isCheck ? Number(this.state.checkedA) + 1 : Number(this.state.checkedA) - 1
@@ -2526,7 +2528,7 @@ webpackJsonp([3],{
 	            }
 	          }
 	        }
-	
+
 	        this.setState({
 	          entryB: isCheck ? this.state.entryB.concat(num) : _temp,
 	          checkedB: isCheck ? Number(this.state.checkedB) + 1 : Number(this.state.checkedB) - 1
@@ -2544,13 +2546,13 @@ webpackJsonp([3],{
 	      if (this.state.select === '') {
 	        return false;
 	      }
-	
+
 	      // 親に送る
 	      this.props.onEventCallBack({
 	        teamA: this.state.entryA.sort(),
 	        teamB: this.state.entryB.sort()
 	      });
-	
+
 	      this.setState({
 	        modal: !this.state.modal,
 	        checkedA: 0,
@@ -2584,7 +2586,7 @@ webpackJsonp([3],{
 	          )
 	        );
 	      });
-	
+
 	      var listB = this.props.memberB.map(function (m, i) {
 	        return _react2.default.createElement(
 	          'div',
@@ -2604,7 +2606,7 @@ webpackJsonp([3],{
 	          )
 	        );
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -2690,10 +2692,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ModalQuarter;
 	}(_react2.default.Component);
-	
+
 	exports.default = ModalQuarter;
 
 /***/ },
@@ -2705,35 +2707,35 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var ModalChange = function (_React$Component) {
 	  _inherits(ModalChange, _React$Component);
-	
+
 	  function ModalChange(props) {
 	    _classCallCheck(this, ModalChange);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ModalChange.__proto__ || Object.getPrototypeOf(ModalChange)).call(this, props));
-	
+
 	    _this.state = {
 	      modal: false,
 	      team: _this.props.team,
@@ -2741,14 +2743,14 @@ webpackJsonp([3],{
 	      selectIn: '',
 	      selectOut: ''
 	    };
-	
+
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.onClickSubmit = _this.onClickSubmit.bind(_this);
 	    _this.onChangeSelectIn = _this.onChangeSelectIn.bind(_this);
 	    _this.onChangeSelectOut = _this.onChangeSelectOut.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(ModalChange, [{
 	    key: 'toggle',
 	    value: function toggle() {
@@ -2776,14 +2778,14 @@ webpackJsonp([3],{
 	      if (this.state.select === '') {
 	        return false;
 	      }
-	
+
 	      // 親に送る
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        in: this.state.selectIn,
 	        out: this.state.selectOut
 	      });
-	
+
 	      this.setState({
 	        modal: !this.state.modal,
 	        selectIn: '',
@@ -2808,10 +2810,10 @@ webpackJsonp([3],{
 	            );
 	          }
 	        }
-	
+
 	        return null;
 	      });
-	
+
 	      var outCount = 0;
 	      var outList = this.state.member.map(function (m, i) {
 	        var is = false;
@@ -2833,7 +2835,7 @@ webpackJsonp([3],{
 	          );
 	        }
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -2918,10 +2920,10 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ModalChange;
 	}(_react2.default.Component);
-	
+
 	exports.default = ModalChange;
 
 /***/ },
@@ -2933,27 +2935,27 @@ webpackJsonp([3],{
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
+
 	var _react = __webpack_require__(/*! react */ 1);
-	
+
 	var _react2 = _interopRequireDefault(_react);
-	
+
 	var _reactstrap = __webpack_require__(/*! reactstrap */ 178);
-	
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
+
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
+
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
+
 	var status = {
 	  TIMEOUT: 1,
 	  POINT1: 2,
@@ -2962,24 +2964,24 @@ webpackJsonp([3],{
 	  CHANGE: 5,
 	  ENTRY: 6
 	};
-	
+
 	var bak = [];
-	
+
 	var ModalUndo = function (_React$Component) {
 	  _inherits(ModalUndo, _React$Component);
-	
+
 	  function ModalUndo(props) {
 	    _classCallCheck(this, ModalUndo);
-	
+
 	    var _this = _possibleConstructorReturn(this, (ModalUndo.__proto__ || Object.getPrototypeOf(ModalUndo)).call(this, props));
-	
+
 	    _this.state = {
 	      undoList: _this.props.undoList
 	    };
-	
+
 	    _this.toggle = _this.toggle.bind(_this);
 	    _this.onClickSubmit = _this.onClickSubmit.bind(_this);
-	
+
 	    _this.onChangeTimeOut = _this.onChangeTimeOut.bind(_this);
 	    _this.onChangePoint2 = _this.onChangePoint2.bind(_this);
 	    _this.onChangePoint1 = _this.onChangePoint1.bind(_this);
@@ -2988,7 +2990,7 @@ webpackJsonp([3],{
 	    _this.onChangeAdd = _this.onChangeAdd.bind(_this);
 	    return _this;
 	  }
-	
+
 	  _createClass(ModalUndo, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps() {
@@ -3002,7 +3004,7 @@ webpackJsonp([3],{
 	      if (this.state.undoList.length <= 10) {
 	        return false;
 	      }
-	
+
 	      // 決定しない場合は復元
 	      if (this.state.modal) {
 	        this.setState({
@@ -3017,13 +3019,13 @@ webpackJsonp([3],{
 	      this.setState({
 	        modal: !this.state.modal
 	      });
-	
+
 	      function clone(obj) {
 	        var newObj = {};
 	        for (var key in obj) {
 	          newObj[key] = obj[key];
 	        }
-	
+
 	        return newObj;
 	      }
 	    }
@@ -3036,10 +3038,10 @@ webpackJsonp([3],{
 	          undoList[i].status = undefined;
 	        }
 	      }
-	
+
 	      // 親に送る
 	      this.props.onEventCallBack({ undoList: undoList });
-	
+
 	      this.setState({
 	        modal: !this.state.modal
 	      });
@@ -3162,7 +3164,7 @@ webpackJsonp([3],{
 	        temp[data.count]._status = Number(data._status);
 	        temp[data.count].team = data.team;
 	      }
-	
+
 	      this.setState({
 	        undoList: temp
 	      });
@@ -3177,7 +3179,7 @@ webpackJsonp([3],{
 	      var change = this.onChangeChange;
 	      var add = this.onChangeAdd;
 	      var eventCallBack = [timeout, point1, point2, foul, change];
-	
+
 	      var list = this.state.undoList.map(function (u, i) {
 	        if (u.status === 'add') {
 	          return _react2.default.createElement(
@@ -3222,7 +3224,7 @@ webpackJsonp([3],{
 	          );
 	        }
 	      });
-	
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -3262,26 +3264,26 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return ModalUndo;
 	}(_react2.default.Component);
-	
+
 	exports.default = ModalUndo;
-	
+
 	var TimeOut = function (_React$Component2) {
 	  _inherits(TimeOut, _React$Component2);
-	
+
 	  function TimeOut(props) {
 	    _classCallCheck(this, TimeOut);
-	
+
 	    var _this2 = _possibleConstructorReturn(this, (TimeOut.__proto__ || Object.getPrototypeOf(TimeOut)).call(this, props));
-	
+
 	    _this2.onChangeSelectTeam = _this2.onChangeSelectTeam.bind(_this2);
 	    _this2.onClickDelete = _this2.onClickDelete.bind(_this2);
 	    _this2.onClickAdd = _this2.onClickAdd.bind(_this2);
 	    return _this2;
 	  }
-	
+
 	  _createClass(TimeOut, [{
 	    key: 'onClickDelete',
 	    value: function onClickDelete(count) {
@@ -3305,7 +3307,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        team: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: e.target.value,
 	        count: this.props.count
@@ -3362,30 +3364,30 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return TimeOut;
 	}(_react2.default.Component);
-	
+
 	var Point2 = function (_React$Component3) {
 	  _inherits(Point2, _React$Component3);
-	
+
 	  function Point2(props) {
 	    _classCallCheck(this, Point2);
-	
+
 	    var _this3 = _possibleConstructorReturn(this, (Point2.__proto__ || Object.getPrototypeOf(Point2)).call(this, props));
-	
+
 	    _this3.state = {
 	      team: _this3.props.data.team,
 	      player: _this3.props.data.player
 	    };
-	
+
 	    _this3.onChangeSelectTeam = _this3.onChangeSelectTeam.bind(_this3);
 	    _this3.onChangePlayer = _this3.onChangePlayer.bind(_this3);
 	    _this3.onClickDelete = _this3.onClickDelete.bind(_this3);
 	    _this3.onClickAdd = _this3.onClickAdd.bind(_this3);
 	    return _this3;
 	  }
-	
+
 	  _createClass(Point2, [{
 	    key: 'onClickDelete',
 	    value: function onClickDelete(count) {
@@ -3407,7 +3409,7 @@ webpackJsonp([3],{
 	    key: 'onChangeSelectTeam',
 	    value: function onChangeSelectTeam(e) {
 	      this.setState({ team: e.target.value });
-	
+
 	      this.props.onEventCallBack({
 	        team: e.target.value,
 	        player: this.state.player,
@@ -3420,7 +3422,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        player: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: e.target.value,
@@ -3566,30 +3568,30 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return Point2;
 	}(_react2.default.Component);
-	
+
 	var Point1 = function (_React$Component4) {
 	  _inherits(Point1, _React$Component4);
-	
+
 	  function Point1(props) {
 	    _classCallCheck(this, Point1);
-	
+
 	    var _this4 = _possibleConstructorReturn(this, (Point1.__proto__ || Object.getPrototypeOf(Point1)).call(this, props));
-	
+
 	    _this4.state = {
 	      team: _this4.props.data.team,
 	      player: _this4.props.data.player || 4
 	    };
-	
+
 	    _this4.onChangeSelectTeam = _this4.onChangeSelectTeam.bind(_this4);
 	    _this4.onChangePlayer = _this4.onChangePlayer.bind(_this4);
 	    _this4.onClickDelete = _this4.onClickDelete.bind(_this4);
 	    _this4.onClickAdd = _this4.onClickAdd.bind(_this4);
 	    return _this4;
 	  }
-	
+
 	  _createClass(Point1, [{
 	    key: 'onClickDelete',
 	    value: function onClickDelete(count) {
@@ -3613,7 +3615,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        team: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: e.target.value,
 	        player: this.state.player,
@@ -3624,7 +3626,7 @@ webpackJsonp([3],{
 	    key: 'onChangePlayer',
 	    value: function onChangePlayer(e) {
 	      this.setState({ player: e.target.value });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: e.target.value,
@@ -3770,24 +3772,24 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return Point1;
 	}(_react2.default.Component);
-	
+
 	var Foul = function (_React$Component5) {
 	  _inherits(Foul, _React$Component5);
-	
+
 	  function Foul(props) {
 	    _classCallCheck(this, Foul);
-	
+
 	    var _this5 = _possibleConstructorReturn(this, (Foul.__proto__ || Object.getPrototypeOf(Foul)).call(this, props));
-	
+
 	    _this5.state = {
 	      team: _this5.props.data.team,
 	      player: _this5.props.data.player,
 	      quarter: _this5.props.data.quarter || 1
 	    };
-	
+
 	    _this5.onChangeSelectTeam = _this5.onChangeSelectTeam.bind(_this5);
 	    _this5.onChangePlayer = _this5.onChangePlayer.bind(_this5);
 	    _this5.onChangeQuarter = _this5.onChangeQuarter.bind(_this5);
@@ -3795,7 +3797,7 @@ webpackJsonp([3],{
 	    _this5.onClickAdd = _this5.onClickAdd.bind(_this5);
 	    return _this5;
 	  }
-	
+
 	  _createClass(Foul, [{
 	    key: 'onClickDelete',
 	    value: function onClickDelete(count) {
@@ -3817,7 +3819,7 @@ webpackJsonp([3],{
 	    key: 'onChangeSelectTeam',
 	    value: function onChangeSelectTeam(e) {
 	      this.setState({ team: e.target.value });
-	
+
 	      this.props.onEventCallBack({
 	        team: e.target.value,
 	        player: this.state.player,
@@ -3831,7 +3833,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        player: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: e.target.value,
@@ -3845,7 +3847,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        quarter: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: this.state.player,
@@ -4025,25 +4027,25 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return Foul;
 	}(_react2.default.Component);
-	
+
 	var Change = function (_React$Component6) {
 	  _inherits(Change, _React$Component6);
-	
+
 	  function Change(props) {
 	    _classCallCheck(this, Change);
-	
+
 	    var _this6 = _possibleConstructorReturn(this, (Change.__proto__ || Object.getPrototypeOf(Change)).call(this, props));
-	
+
 	    _this6.state = {
 	      team: _this6.props.data.team,
 	      in: _this6.props.data.in,
 	      out: _this6.props.data.out,
 	      quarter: _this6.props.data.quarter
 	    };
-	
+
 	    _this6.onChangeSelectTeam = _this6.onChangeSelectTeam.bind(_this6);
 	    _this6.onChangeQuarter = _this6.onChangeQuarter.bind(_this6);
 	    _this6.onChangeIn = _this6.onChangeIn.bind(_this6);
@@ -4052,7 +4054,7 @@ webpackJsonp([3],{
 	    _this6.onClickAdd = _this6.onClickAdd.bind(_this6);
 	    return _this6;
 	  }
-	
+
 	  _createClass(Change, [{
 	    key: 'onClickDelete',
 	    value: function onClickDelete(count) {
@@ -4076,7 +4078,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        team: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: e.target.value,
 	        in: this.state.in,
@@ -4091,7 +4093,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        quarter: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        player: this.state.player,
@@ -4105,7 +4107,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        in: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        in: e.target.value,
@@ -4120,7 +4122,7 @@ webpackJsonp([3],{
 	      this.setState({
 	        out: e.target.value
 	      });
-	
+
 	      this.props.onEventCallBack({
 	        team: this.state.team,
 	        in: this.state.in,
@@ -4397,28 +4399,28 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return Change;
 	}(_react2.default.Component);
-	
+
 	var AddUndo = function (_React$Component7) {
 	  _inherits(AddUndo, _React$Component7);
-	
+
 	  function AddUndo(props) {
 	    _classCallCheck(this, AddUndo);
-	
+
 	    var _this7 = _possibleConstructorReturn(this, (AddUndo.__proto__ || Object.getPrototypeOf(AddUndo)).call(this, props));
-	
+
 	    _this7.state = {
 	      status: _this7.props.status
 	    };
-	
+
 	    _this7.onChangeSelect = _this7.onChangeSelect.bind(_this7);
 	    _this7.onClickDelete = _this7.onClickDelete.bind(_this7);
 	    _this7.onClickAdd = _this7.onClickAdd.bind(_this7);
 	    return _this7;
 	  }
-	
+
 	  _createClass(AddUndo, [{
 	    key: 'onClickDelete',
 	    value: function onClickDelete(count) {
@@ -4444,7 +4446,7 @@ webpackJsonp([3],{
 	        team: 'A',
 	        count: this.props.count
 	      });
-	
+
 	      this.setState({
 	        status: e.target.value
 	      });
@@ -4453,7 +4455,7 @@ webpackJsonp([3],{
 	    key: 'render',
 	    value: function render() {
 	      var _this8 = this;
-	
+
 	      var Status = function Status(props) {
 	        if (Number(props.status) === status.TIMEOUT) {
 	          return _react2.default.createElement(
@@ -4533,7 +4535,7 @@ webpackJsonp([3],{
 	      );
 	    }
 	  }]);
-	
+
 	  return AddUndo;
 	}(_react2.default.Component);
 

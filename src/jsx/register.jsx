@@ -87,7 +87,7 @@ class Register extends React.Component {
 
   componentDidMount() {
     $.ajax({
-      url: 'http://localhost:3000/api/team/all',
+      url: 'http://172.16.1.12:3000/api/team/all',
       type: 'GET',
       dataType: 'json',
       data: {},
@@ -192,7 +192,7 @@ class Register extends React.Component {
     console.log(result);
     // if(result) {
     //   $.ajax({
-    //     url: 'http://localhost:3000/api/user/' + id,
+    //     url: 'http://172.16.1.12:3000/api/user/' + id,
     //     type: 'POST',
     //     dataType: 'json',
     //   }).then(
@@ -222,7 +222,7 @@ class Register extends React.Component {
 
   findUserId(id) {
     $.ajax({
-      url: 'http://localhost:3000/api/user/check/' + id,
+      url: 'http://172.16.1.12:3000/api/user/check/' + id,
       type: 'GET',
       dataType: 'json',
     }).then(

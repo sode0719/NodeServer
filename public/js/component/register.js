@@ -128,7 +128,7 @@ var Register = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       $.ajax({
-        url: 'http://localhost:3000/api/team/all',
+        url: 'http://172.16.1.12:3000/api/team/all',
         type: 'GET',
         dataType: 'json',
         data: {}
@@ -247,7 +247,7 @@ var Register = function (_React$Component) {
       console.log(result);
       // if(result) {
       //   $.ajax({
-      //     url: 'http://localhost:3000/api/user/' + id,
+      //     url: 'http://172.16.1.12:3000/api/user/' + id,
       //     type: 'POST',
       //     dataType: 'json',
       //   }).then(
@@ -281,7 +281,7 @@ var Register = function (_React$Component) {
     key: 'findUserId',
     value: function findUserId(id) {
       $.ajax({
-        url: 'http://localhost:3000/api/user/check/' + id,
+        url: 'http://172.16.1.12:3000/api/user/check/' + id,
         type: 'GET',
         dataType: 'json'
       }).then(function (json) {

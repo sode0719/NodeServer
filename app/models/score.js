@@ -13,4 +13,5 @@ module.exports = mongoose.model('scores', new Schema({
   teamB: String,
   runningScore: String,
   refereeData: String,
+  undoList: String,
 }));

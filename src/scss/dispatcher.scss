@@ -9,9 +9,19 @@ ul {
 }
 
 .js-operator {
-  color: red;
+  color: #ff4444;
 }
 
 .js-capacity {
   font-size: 12px;
+}
+
+.js-car li.js-operator:nth-child(2) {
+	background: #fff;
+
+  &:after {
+    content: " 運転手";
+    float: right;
+    color: rgba(0, 0, 0, 0.5);
+  }
 }

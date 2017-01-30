@@ -1,7 +1,24 @@
 'use strict';
 
 const team_id = $('#js-team_id').text();
+let teamData = null;
+
 $(function() {
+  // チームデータ取得
+  $.ajax({
+    url: 'http://172.16.1.12:3000/api/team/' + team_id,
+    type: 'GET',
+    dataType: 'json',
+  }).then(
+      function(json) {
+        teamData = json[0];
+        console.log(teamData);
+      },
+      function() {
+        console.log('読み込み失敗');
+      }
+    );
+
   // navbar
   $('#js-schedule').addClass('active');
 
@@ -100,7 +117,12 @@ $(function() {
 
   $('.js-dispatcher').change(function() {
     if($(this).is(':checked')) {
-      $('#js-aggregate-base').append('<div class="md-form"><input id="js-aggregate" type="text" class="form-control"/><label for="js-aggregate">集合場所</label></div>');
+      let option = '<option selected>集合場所を選択</option>';
+      for(let i = 0; i < teamData.home.length; i++) {
+        option += '<option>' + teamData.home[i] + '</option>';
+      }
+
+      $('#js-aggregate-base').append('<select class="form-control" id="js-aggregate">' + option + '</select>');
     } else {
       $('#js-aggregate-base').empty();
     }
@@ -150,9 +172,9 @@ $(function() {
     }
 
     const aggregate = $('#js-aggregate').val();
-    if($(this).is(':checked') && aggregate === '') {
+    if($('input[type="checkbox"]').is(':checked') && aggregate === '集合場所を選択') {
       validationAnimation('#js-aggregate');
-      validationErrorMessage('集合場所を入力してください');
+      validationErrorMessage('集合場所を選択してください');
       err = true;
     }
 

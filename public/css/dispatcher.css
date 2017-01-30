@@ -1,3 +1,4 @@
+@charset "UTF-8";
 ul .sortable {
   margin-bottom: 15px !important; }
 
@@ -5,7 +6,14 @@ ul .sortable {
   margin-top: 15px; }
 
 .js-operator {
-  color: red; }
+  color: #ff4444; }
 
 .js-capacity {
   font-size: 12px; }
+
+.js-car li.js-operator:nth-child(2) {
+  background: #fff; }
+  .js-car li.js-operator:nth-child(2):after {
+    content: " 運転手";
+    float: right;
+    color: rgba(0, 0, 0, 0.5); }

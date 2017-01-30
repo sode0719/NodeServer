@@ -3,6 +3,7 @@ const express = require('express');
 const apiRoutes = new express.Router();
 
 const log = require('../../util/logger');
+const fcm = require('../../util/fcm');
 
 // MongoDB
 const User = require('../../models/user');
@@ -74,7 +75,33 @@ apiRoutes.post('/:user_id', function(req, res) {
 apiRoutes.delete('/', function(req, res) {
 });
 
-apiRoutes.put('/', function(req, res) {
+apiRoutes.put('/fcm/:user_id', function(req, res) {
+  User.findOne({_id: ObjectId(req.params.user_id)}, function(err, doc) {
+    doc.fcmToken = req.body.fcmToken,
+
+    doc.save(function(err) {
+      if(err) {
+        throw err;
+      }
+
+      fcmSend(doc._id, 'アカウントを連携しました');
+
+      res.json({success: true});
+    });
+  });
 });
+
+// プッシュ通知
+function fcmSend(id, body) {
+  User.find({_id: id}, function(err, users) {
+    if(err) {
+      throw err;
+    }
+    users.forEach(function(user) {
+      const to = user.fcmToken;
+      fcm.send(to, body);
+    });
+  });
+}
 
 module.exports = apiRoutes;

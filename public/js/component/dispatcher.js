@@ -94,7 +94,7 @@ var ListPerson = function ListPerson(props) {
 var Car = function Car(props) {
   return React.createElement(
     'ul',
-    { className: 'list-group sortable js-car', 'data-owner': props.owner },
+    { className: 'list-group sortable js-car', 'data-owner': props.owner, 'data-name': props.operator },
     React.createElement(
       'li',
       { className: 'list-group-item list-group-item-info sortable-stop sortable-disable', 'data-capacity': props.capacity },
@@ -175,7 +175,7 @@ var Dispatcher = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       $.ajax({
-        url: 'http://localhost:3000/api/dispatcher/' + this.state.id,
+        url: 'http://172.16.1.12:3000/api/dispatcher/' + this.state.id,
         type: 'GET',
         dataType: 'json'
       }).then(function (json) {
@@ -191,7 +191,7 @@ var Dispatcher = function (_React$Component) {
         });
 
         $.ajax({
-          url: 'http://localhost:3000/api/dispatcher/id/' + this.state.id,
+          url: 'http://172.16.1.12:3000/api/dispatcher/id/' + this.state.id,
           type: 'GET',
           dataType: 'json'
         }).then(function (json) {
@@ -378,6 +378,7 @@ var Dispatcher = function (_React$Component) {
             var divide = [];
             var capacity = 0;
             var owner = '';
+            var ownerName = '';
             var length = $(this).find('.list-group-item').length;
             $(this).find('.list-group-item').each(function (j) {
               if (j !== 0) {
@@ -398,11 +399,13 @@ var Dispatcher = function (_React$Component) {
                 var count = $(this).text().split('/');
                 capacity = count[count.length - 1];
                 owner = $(this).parent().attr('data-owner');
+                ownerName = $(this).parent().attr('data-name');
               }
             });
 
             temp.push({
               owner_id: owner,
+              owner_name: ownerName,
               capacity: capacity,
               divide: divide
             });
@@ -417,7 +420,7 @@ var Dispatcher = function (_React$Component) {
       });
 
       $.ajax({
-        url: 'http://localhost:3000/api/dispatcher/' + this.state.id,
+        url: 'http://172.16.1.12:3000/api/dispatcher/' + this.state.id,
         type: 'PUT',
         dataType: 'json',
         data: { divide: JSON.stringify(dispatcher) }
@@ -527,7 +530,7 @@ function getDispatcher() {
     var count = -1;
     var operator = false;
     $(this).children('li').each(function (i) {
-      if ($(this).hasClass('js-operator')) {
+      if (count === 0 && $(this).hasClass('js-operator')) {
         operator = true;
       }
       count++;
