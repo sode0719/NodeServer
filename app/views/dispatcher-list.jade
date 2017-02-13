@@ -11,7 +11,10 @@ block content
   .container
     if login
       #js-team_id(style='display: none')= team_id
-      #dispatcher-list
+      if delegate
+        #dispatcher-list
+      else
+        .alert.alert-warning 代表者のみ利用できます
     else
       .alert.alert-danger ログインしてください
 
@@ -22,4 +25,5 @@ block script
   if login
     script(src="http://172.16.1.12:3000/js/lib/bootstrap-datepicker/bootstrap-datepicker.min.js")
     script(src="http://172.16.1.12:3000/js/lib/bootstrap-datepicker/bootstrap-datepicker.ja.min.js")
-    script(src="http://172.16.1.12:3000/js/component/dispatcher-list.js")
+    if delegate
+      script(src="http://172.16.1.12:3000/js/component/dispatcher-list.js")

@@ -10,9 +10,12 @@ router.get('/', function(req, res, next) {
     login = true;
   }
 
+  const delegate = req.session.delegate;
+
   res.render('index', {
     title: 'ホーム',
     login: login,
+    delegate: delegate,
   });
 });
 

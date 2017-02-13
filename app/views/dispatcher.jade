@@ -10,7 +10,10 @@ block content
   .container
     if login
       #js-id(style='display: none')= id
-      #dispatcher
+      if delegate
+        #dispatcher
+      else
+        .alert.alert-warning 代表者のみ利用できます
     else
       .alert.alert-danger ログインしてください
 

@@ -44,16 +44,15 @@ $(function() {
       },
     }],
     dayClick: function(date, allDay, jsEvent, view) {
-      const isYear = date._d.getFullYear() < new Date().getFullYear();
-      const isMonth = date._d.getMonth() < new Date().getMonth();
-      const isDate = date._d.getDate() < new Date().getDate();
+      const m = moment(date);
+      const now = moment(new Date());
 
-      if(isYear || isMonth || isDate) {
+      if(m.diff(now, 'days') < 0) {
         return false;
       }
+
       fromReset();
       $('#js-delete').remove();
-      const m = moment(date);
       $('.datepicker').val(m.format('YYYY-MM-DD'));
       $('.datepicker').datepicker('setDate', new Date(date));
       $('#js-submit').text('登録');

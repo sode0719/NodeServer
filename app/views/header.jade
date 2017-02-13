@@ -5,13 +5,19 @@ nav.navbar.navbar-dark.bg-primary
     #collapseEx2.collapse.navbar-toggleable-xs
       a.navbar-brand(href='http://172.16.1.12:3000/')
         i.fa.fa-home.fa-lg
-      ul.nav.navbar-nav
+      ul.nav.navbar-nav.mr-auto
         li#js-schedule.nav-item
           a.nav-link(href='http://172.16.1.12:3000/calendar') カレンダー
         li#js-dispatcher.nav-item
           a.nav-link(href='http://172.16.1.12:3000/dispatcher') 配車
         li#js-score.nav-item
           a.nav-link(href='http://172.16.1.12:3000/score') スコア
+        if login
+          li#js-user.nav-item
+            a.nav-link(href='http://172.16.1.12:3000/user') ユーザー
+          if delegate
+            li#js-team.nav-item
+              a.nav-link(href='http://172.16.1.12:3000/team') チーム
         li#js-log.nav-item
           if login
             a.nav-link(href='http://172.16.1.12:3000/logout') ログアウト

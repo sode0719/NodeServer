@@ -79,21 +79,29 @@ class Score extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <Table hover>
-          <thead>
-            <tr>
-              <th>日付</th>
-              <th>試合名</th>
-              <th>会場</th>
-              <th>編集</th>
-            </tr>
-          </thead>
-          <ListScore list={this.state.list} />
-        </Table>
-      </div>
-    );
+    if(this.state.list.length === 0) {
+      return (
+        <div className="alert alert-info" >
+          スコアシートが登録されていません
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Table hover>
+            <thead>
+              <tr>
+                <th>日付</th>
+                <th>試合名</th>
+                <th>会場</th>
+                <th>編集</th>
+              </tr>
+            </thead>
+            <ListScore list={this.state.list} />
+          </Table>
+        </div>
+      );
+    }
   }
 }
 

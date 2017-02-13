@@ -4,4 +4,6 @@ const Schema = mongoose.Schema;
 
 module.exports = mongoose.model('Team', new Schema({
   name: String,
+  basketNumber: String,
+  home: Array,
 }));

@@ -91,6 +91,13 @@ class Dispatcher extends React.Component {
             return data.isUse === true;
           });
 
+           // 日付が早い順に並び替え
+          data.sort(function(a, b) {
+            const aa = Number(a.date.split('T')[0].replace(/-/g, ''));
+            const bb = Number(b.date.split('T')[0].replace(/-/g, ''));
+            return aa > bb ? 1 : -1;
+          });
+
           this.setState({
             dispatcherList: data,
           });
@@ -102,23 +109,31 @@ class Dispatcher extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <ModalAdd teamId={this.state.team_id}/>
-        <Table hover>
-          <thead>
-            <tr>
-              <th>タイトル</th>
-              <th>日付</th>
-              <th>集合場所</th>
-              <th>目的地</th>
-              <th>配車完了</th>
-            </tr>
-          </thead>
-          <ListDispatcher list={this.state.dispatcherList} />
-        </Table>
-      </div>
-    );
+    if(this.state.dispatcherList.length === 0) {
+      return (
+        <div className="alert alert-info" >
+          配車の予定が登録されていません
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <ModalAdd teamId={this.state.team_id}/>
+          <Table hover>
+            <thead>
+              <tr>
+                <th>タイトル</th>
+                <th>日付</th>
+                <th>集合場所</th>
+                <th>目的地</th>
+                <th>配車完了</th>
+              </tr>
+            </thead>
+            <ListDispatcher list={this.state.dispatcherList} />
+          </Table>
+        </div>
+      );
+    }
   }
 }
 

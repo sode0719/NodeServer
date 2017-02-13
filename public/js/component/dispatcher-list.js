@@ -137,6 +137,13 @@ var Dispatcher = function (_React$Component) {
           return data.isUse === true;
         });
 
+        // 日付が早い順に並び替え
+        data.sort(function (a, b) {
+          var aa = Number(a.date.split('T')[0].replace(/-/g, ''));
+          var bb = Number(b.date.split('T')[0].replace(/-/g, ''));
+          return aa > bb ? 1 : -1;
+        });
+
         this.setState({
           dispatcherList: data
         });
@@ -147,49 +154,57 @@ var Dispatcher = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement(
-        "div",
-        null,
-        React.createElement(ModalAdd, { teamId: this.state.team_id }),
-        React.createElement(
-          Table,
-          { hover: true },
+      if (this.state.dispatcherList.length === 0) {
+        return React.createElement(
+          "div",
+          { className: "alert alert-info" },
+          "\u914D\u8ECA\u306E\u4E88\u5B9A\u304C\u767B\u9332\u3055\u308C\u3066\u3044\u307E\u305B\u3093"
+        );
+      } else {
+        return React.createElement(
+          "div",
+          null,
+          React.createElement(ModalAdd, { teamId: this.state.team_id }),
           React.createElement(
-            "thead",
-            null,
+            Table,
+            { hover: true },
             React.createElement(
-              "tr",
+              "thead",
               null,
               React.createElement(
-                "th",
+                "tr",
                 null,
-                "\u30BF\u30A4\u30C8\u30EB"
-              ),
-              React.createElement(
-                "th",
-                null,
-                "\u65E5\u4ED8"
-              ),
-              React.createElement(
-                "th",
-                null,
-                "\u96C6\u5408\u5834\u6240"
-              ),
-              React.createElement(
-                "th",
-                null,
-                "\u76EE\u7684\u5730"
-              ),
-              React.createElement(
-                "th",
-                null,
-                "\u914D\u8ECA\u5B8C\u4E86"
+                React.createElement(
+                  "th",
+                  null,
+                  "\u30BF\u30A4\u30C8\u30EB"
+                ),
+                React.createElement(
+                  "th",
+                  null,
+                  "\u65E5\u4ED8"
+                ),
+                React.createElement(
+                  "th",
+                  null,
+                  "\u96C6\u5408\u5834\u6240"
+                ),
+                React.createElement(
+                  "th",
+                  null,
+                  "\u76EE\u7684\u5730"
+                ),
+                React.createElement(
+                  "th",
+                  null,
+                  "\u914D\u8ECA\u5B8C\u4E86"
+                )
               )
-            )
-          ),
-          React.createElement(ListDispatcher, { list: this.state.dispatcherList })
-        )
-      );
+            ),
+            React.createElement(ListDispatcher, { list: this.state.dispatcherList })
+          )
+        );
+      }
     }
   }]);
 

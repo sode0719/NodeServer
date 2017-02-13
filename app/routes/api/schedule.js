@@ -62,9 +62,10 @@ apiRoutes.post('/:team_id', function(req, res) {
       for(let i = 0; i < getDiff(start, end); i++) {
         date.setDate(date.getDate() + i);
         const y = date.getFullYear();
-        const m = date.getMonth() + 1;
-        const d = date.getDate() + 1;
+        const m = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+        const d = date.getDate() + 1 < 10 ? '0' + date.getDate() : date.getDate();
         yyyymmdd = y + '-' + m + '-' + d;
+        console.log(yyyymmdd);
 
         resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate, true);
       }
@@ -140,9 +141,9 @@ apiRoutes.put('/', function(req, res) {
       for(let i = 0; i < getDiff(start, end); i++) {
         date.setDate(date.getDate() + i);
         const y = date.getFullYear();
-        const m = date.getMonth() + 1;
-        const d = date.getDate();
-        yyyymmdd = y + '-' + m + '-' + d;
+        const m = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth();
+        const d = date.getDate() + 1 < 10 ? '0' + date.getDate() : date.getDate();
+        yyyymmdd = y + '/' + m + '/' + d;
 
         if(isDispatcher) {
           resistDispatcher(team_id, req.body.title, yyyymmdd, req.body.location, schedule_id, req.body.aggregate, true);
@@ -207,14 +208,14 @@ function resistDispatcher(team_id, title, date, destination, schedule_id, aggreg
     Dispatcher.findOne({schedule_id: schedule_id}, function(err, doc) {
       if(doc === null) {
         const dispatcher = new Dispatcher({
-          schedule_id: schedule_id,
-          team_id: team_id,
+          schedule_id: ObjectId(schedule_id),
+          team_id: ObjectId(team_id),
           title: title,
           date: date,
           aggregate: aggregate,
           destination: destination,
           send: users.length,
-          isUse: true,
+          isUse: isUse,
         });
 
         dispatcher.save(function(err) {

@@ -41,16 +41,15 @@ $(function () {
       }
     }],
     dayClick: function dayClick(date, allDay, jsEvent, view) {
-      var isYear = date._d.getFullYear() < new Date().getFullYear();
-      var isMonth = date._d.getMonth() < new Date().getMonth();
-      var isDate = date._d.getDate() < new Date().getDate();
+      var m = moment(date);
+      var now = moment(new Date());
 
-      if (isYear || isMonth || isDate) {
+      if (m.diff(now, 'days') < 0) {
         return false;
       }
+
       fromReset();
       $('#js-delete').remove();
-      var m = moment(date);
       $('.datepicker').val(m.format('YYYY-MM-DD'));
       $('.datepicker').datepicker('setDate', new Date(date));
       $('#js-submit').text('登録');

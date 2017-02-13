@@ -122,43 +122,51 @@ var Score = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'div',
-        null,
-        React.createElement(
-          Table,
-          { hover: true },
+      if (this.state.list.length === 0) {
+        return React.createElement(
+          'div',
+          { className: 'alert alert-info' },
+          '\u30B9\u30B3\u30A2\u30B7\u30FC\u30C8\u304C\u767B\u9332\u3055\u308C\u3066\u3044\u307E\u305B\u3093'
+        );
+      } else {
+        return React.createElement(
+          'div',
+          null,
           React.createElement(
-            'thead',
-            null,
+            Table,
+            { hover: true },
             React.createElement(
-              'tr',
+              'thead',
               null,
               React.createElement(
-                'th',
+                'tr',
                 null,
-                '\u65E5\u4ED8'
-              ),
-              React.createElement(
-                'th',
-                null,
-                '\u8A66\u5408\u540D'
-              ),
-              React.createElement(
-                'th',
-                null,
-                '\u4F1A\u5834'
-              ),
-              React.createElement(
-                'th',
-                null,
-                '\u7DE8\u96C6'
+                React.createElement(
+                  'th',
+                  null,
+                  '\u65E5\u4ED8'
+                ),
+                React.createElement(
+                  'th',
+                  null,
+                  '\u8A66\u5408\u540D'
+                ),
+                React.createElement(
+                  'th',
+                  null,
+                  '\u4F1A\u5834'
+                ),
+                React.createElement(
+                  'th',
+                  null,
+                  '\u7DE8\u96C6'
+                )
               )
-            )
-          ),
-          React.createElement(ListScore, { list: this.state.list })
-        )
-      );
+            ),
+            React.createElement(ListScore, { list: this.state.list })
+          )
+        );
+      }
     }
   }]);
 

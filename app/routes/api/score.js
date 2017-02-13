@@ -49,6 +49,8 @@ apiRoutes.post('/', function(req, res) {
       throw err;
     }
 
+    fcmSend(score.team_id, '「' + score.gameName + '」のスコアシートが登録されました');
+
     res.json({success: true});
   });
 });
@@ -64,5 +66,18 @@ apiRoutes.delete('/:score_id', function(req, res) {
 
 apiRoutes.put('/', function(req, res) {
 });
+
+// プッシュ通知
+function fcmSend(team_id, body) {
+  User.find({team_id: team_id}, function(err, users) {
+    if(err) {
+      throw err;
+    }
+    users.forEach(function(user) {
+      const to = user.fcmToken;
+      fcm.send(to, body);
+    });
+  });
+}
 
 module.exports = apiRoutes;

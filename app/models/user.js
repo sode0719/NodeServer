@@ -9,5 +9,5 @@ module.exports = mongoose.model('User', new Schema({
   team_id: Schema.Types.ObjectId,
   delegate: Boolean,
   fcmToken: String,
-  carCapacity: Number,
+  carCapacity: Array,
 }));
