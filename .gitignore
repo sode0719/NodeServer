@@ -1,5 +1,8 @@
 /node_modules
 *.log
 .idea
+.vscode
+/bin/server.key
+/bin/server.crt
 /app/util/fcm-server-key.js
 /app/util/config.js
