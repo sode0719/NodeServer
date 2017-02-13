@@ -7,6 +7,7 @@ const fcm = require('../../util/fcm');
 
 // MongoDB
 const User = require('../../models/user');
+const Team = require('../../models/team');
 const Children = require('../../models/children');
 const ObjectId = require('mongoose').Types.ObjectId;
 
@@ -20,6 +21,31 @@ apiRoutes.get('/:user_id', function(req, res) {
   });
 });
 
+apiRoutes.get('/obj/:user_id', function(req, res) {
+  User.find({_id: ObjectId(req.params.user_id)}, function(err, user) {
+    if(err) {
+      throw err;
+    }
+
+    res.json(user);
+  });
+});
+
+apiRoutes.delete('/:user_id', function(req, res) {
+  User.remove({_id: req.params.user_id}, function(err) {
+    if(err) {
+      throw err;
+    }
+    Children.remove({user_id: req.params.user_id}, function(err) {
+      if(err) {
+        throw err;
+      }
+
+      res.json({success: true});
+    });
+  });
+});
+
 apiRoutes.get('/check/:user_id', function(req, res) {
   User.find({id: req.params.user_id}, function(err, user) {
     if(err) {
@@ -30,6 +56,16 @@ apiRoutes.get('/check/:user_id', function(req, res) {
     } else {
       res.json({find: false});
     }
+  });
+});
+
+apiRoutes.get('/children/:user_id', function(req, res) {
+  Children.find({user_id: req.params.user_id}, function(err, child) {
+    if(err) {
+      throw err;
+    }
+
+    res.json(child);
   });
 });
 
@@ -51,15 +87,15 @@ apiRoutes.get('/person/:user_id', function(req, res) {
   });
 });
 
-apiRoutes.post('/:user_id', function(req, res) {
+apiRoutes.post('/', function(req, res) {
   const user = new User({
-    id: req.params.user_id,
+    id: req.body.user_id,
     name: req.body.name,
     password: req.body.password,
-    team_id: Schema.Types.ObjectId,
+    team_id: req.body.team_id,
     delegate: false,
-    fcmToken: 'token',
-    car: -1,
+    fcmToken: '',
+    carCapacity: [req.body.car],
     child: [],
   });
 
@@ -72,7 +108,38 @@ apiRoutes.post('/:user_id', function(req, res) {
   });
 });
 
-apiRoutes.delete('/', function(req, res) {
+apiRoutes.post('/team', function(req, res) {
+  const team = new Team({
+    _id: new ObjectId(),
+    name: req.body.team,
+    basketNumber: req.body.basketNumber,
+    home: [req.body.teamhome],
+  });
+
+  team.save(function(err) {
+    if(err) {
+      throw err;
+    }
+
+    const user = new User({
+      id: req.body.user_id,
+      name: req.body.name,
+      password: req.body.password,
+      team_id: team._id,
+      delegate: true,
+      fcmToken: '',
+      carCapacity: [req.body.car],
+      child: [],
+    });
+
+    user.save(function(err) {
+      if(err) {
+        throw err;
+      }
+
+      res.json({success: true});
+    });
+  });
 });
 
 apiRoutes.put('/fcm/:user_id', function(req, res) {

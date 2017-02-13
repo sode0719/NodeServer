@@ -13,4 +13,13 @@ router.get('/', function(req, res, next) {
   res.render('register', {title: '新規登録'});
 });
 
+router.get('/team', function(req, res, next) {
+  let login = false;
+  if(req.session.token) {
+    login = true;
+  }
+
+  res.render('register-team', {title: 'チーム新規登録'});
+});
+
 module.exports = router;

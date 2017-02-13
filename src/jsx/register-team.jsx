@@ -1,4 +1,5 @@
 'use strict';
+
 const {
   Button,
   Form,
@@ -30,17 +31,25 @@ const IdErrorMessage = (props) => {
   }
 };
 
-const TeamErrorMessage = (props) => {
+const BasketNumberErrorMessage = (props) => {
   if(props.color === '' || props.color === 'success') {
-    return <FormFeedback>チーム名: {props.team.name}</FormFeedback>;
+    return <FormFeedback>新規登録可能です</FormFeedback>;
   } else if(props.color === 'danger') {
-    return <FormFeedback>該当のチームは登録されていません</FormFeedback>;
+    return <FormFeedback>該当のチームは既に登録されています</FormFeedback>;
   } else if(props.color === 'warning') {
     return <FormFeedback>11桁入力してください</FormFeedback>;
   }
 };
 
-class Register extends React.Component {
+const TeamErrorMessage = (props) => {
+  if(props.color === '' || props.color === 'success') {
+    return null;
+  } else if(props.color === 'warning') {
+    return <FormFeedback>入力してください</FormFeedback>;
+  }
+};
+
+class RegisterTeam extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,15 +57,18 @@ class Register extends React.Component {
       idUsed: false,
       idColor: '',
       name: '',
-      nameColor: 'warning',
+      nameColor: '',
       pass: '',
       passCollation: '',
       passColor: '',
       team: '',
-      teamColor: 'warning',
+      teamColor: '',
       car: '',
       carColor: 'warning',
       basketNumber: '',
+      basketColor: 'warning',
+      teamhome: '',
+      teamhomeColor: '',
     };
 
     // handle
@@ -65,13 +77,12 @@ class Register extends React.Component {
     this.handleChangePass = this.handleChangePass.bind(this);
     this.handleChangePassCollation = this.handleChangePassCollation.bind(this);
     this.handleChangeTeam = this.handleChangeTeam.bind(this);
+    this.handleChangeTeamHome = this.handleChangeTeamHome.bind(this);
+    this.handleChangeBasketNumber = this.handleChangeBasketNumber.bind(this);
     this.handleChangeCar = this.handleChangeCar.bind(this);
     // onClick
     this.onClickCheckId = this.onClickCheckId.bind(this);
     this.onClickSubmit = this.onClickSubmit.bind(this);
-    // method
-    this.isMatch = this.isMatch.bind(this);
-    this.findUserId = this.findUserId.bind(this);
   }
 
   componentDidMount() {
@@ -111,7 +122,7 @@ class Register extends React.Component {
     });
   }
 
-  handleChangeTeam(event) {
+  handleChangeBasketNumber(event) {
     if(event.target.value.length > 11) {
       return false;
     }
@@ -129,12 +140,11 @@ class Register extends React.Component {
           function(json) {
             if(json.length === 0) {
               this.setState({
-                teamColor: 'danger',
+                basketColor: 'success',
               });
             } else {
-              this.setState({team: json[0]});
               this.setState({
-                teamColor: 'success',
+                basketColor: 'danger',
               });
             }
           }.bind(this),
@@ -144,9 +154,41 @@ class Register extends React.Component {
         );
     } else {
       this.setState({
-        teamColor: 'warning',
+        basketColor: 'warning',
       });
     }
+  }
+
+  handleChangeTeam(event) {
+    this.setState({
+      team: event.target.value,
+    }, () => {
+      if(this.state.team !== '') {
+        this.setState({
+          teamColor: 'success',
+        });
+      } else {
+        this.setState({
+          teamColor: 'warning',
+        });
+      }
+    });
+  }
+
+  handleChangeTeamHome(event) {
+    this.setState({
+      teamhome: event.target.value,
+    }, () => {
+      if(this.state.teamhome !== '') {
+        this.setState({
+          teamhomeColor: 'success',
+        });
+      } else {
+        this.setState({
+          teamhomeColor: 'warning',
+        });
+      }
+    });
   }
 
   handleChangeCar(event) {
@@ -177,7 +219,7 @@ class Register extends React.Component {
     if(this.state.idColor !== 'success') {
       result = false;
     }
-    if(this.state.name === '') {
+    if(this.state.nameColor !== 'success') {
       result = false;
     }
     if(this.state.passColor !== 'success') {
@@ -190,19 +232,29 @@ class Register extends React.Component {
       result = false;
     }
 
+    if(this.state.basketColor !== 'success') {
+      result = false;
+    }
+
+    if(this.state.teamhomeColor !== 'success') {
+      result = false;
+    }
+
     console.log(result);
 
     if(result) {
       $.ajax({
-        url: 'http://172.16.1.12:3000/api/user/',
+        url: 'http://172.16.1.12:3000/api/user/team',
         type: 'POST',
         dataType: 'json',
         data: {
           user_id: this.state.id,
           name: this.state.name,
           password: this.state.pass,
-          team_id: this.state.team._id,
+          team: this.state.team,
           car: this.state.car,
+          basketNumber: this.state.basketNumber,
+          teamhome: this.state.teamhome,
         },
       }).then(
           function(json) {
@@ -250,6 +302,24 @@ class Register extends React.Component {
     const passEdit = this.state.pass.length > 0 || this.state.passCollation.length > 0 ? false : true;
     return (
       <div style={{marginBottom: '25px'}}>
+        <h2>チーム情報</h2>
+        <FormGroup color={this.state.basketColor}>
+          <Label><h4>番号</h4></Label>
+          <Input type="number" state={this.state.basketColor} placeholder="番号" value={this.state.basketNumber} onChange={this.handleChangeBasketNumber} />
+          <BasketNumberErrorMessage color={this.state.basketColor} />
+        </FormGroup>
+        <FormGroup color={this.state.teamColor}>
+          <Label><h4>チーム名</h4></Label>
+          <Input type="text" state={this.state.teamColor} placeholder="チーム名" value={this.state.team} onChange={this.handleChangeTeam} />
+          <TeamErrorMessage color={this.state.teamColor} />
+        </FormGroup>
+        <FormGroup color={this.state.teamhomeColor}>
+          <Label><h4>ホームグラウンド</h4></Label>
+          <Input type="text" state={this.state.teamhomeColor} placeholder="ホームグラウンド" value={this.state.teamhome} onChange={this.handleChangeTeamHome} />
+          <TeamErrorMessage color={this.state.teamhomeColor} />
+        </FormGroup>
+        <hr />
+        <h2>代表者アカウント</h2>
         <FormGroup color={this.state.idColor}>
           <Label><h4>ユーザーID<Button color="primary" size="sm" onClick={this.onClickCheckId}>使用可能かチェック</Button></h4></Label>
           <Input type="text" state={this.state.idColor} placeholder="ユーザー名" value={this.state.id} onChange={this.handleChangeId} />
@@ -268,11 +338,6 @@ class Register extends React.Component {
           <Label><h4>パスワード再入力</h4></Label>
           <Input type="password" state={this.state.passColor} placeholder="パスワード再入力" value={this.state.passCollation} onChange={this.handleChangePassCollation} />
           <PassErrorMessage color={this.state.passColor} />
-        </FormGroup>
-        <FormGroup color={this.state.teamColor}>
-          <Label><h4>所属チーム</h4></Label>
-          <Input type="number" state={this.state.teamColor} placeholder="番号" value={this.state.basketNumber} onChange={this.handleChangeTeam} />
-          <TeamErrorMessage color={this.state.teamColor} team={this.state.team} />
         </FormGroup>
         <FormGroup color={this.state.carColor}>
           <Label><h4>車の定員</h4></Label>
@@ -295,6 +360,6 @@ class Register extends React.Component {
 }
 
 ReactDOM.render(
-  <Register />,
+  <RegisterTeam />,
   document.getElementById('register')
 );

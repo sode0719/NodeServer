@@ -59,29 +59,27 @@ var IdErrorMessage = function IdErrorMessage(props) {
   }
 };
 
-var ListTeam = function ListTeam(props) {
-  var list = props.teams.map(function (team, i) {
+var TeamErrorMessage = function TeamErrorMessage(props) {
+  if (props.color === '' || props.color === 'success') {
     return React.createElement(
-      'option',
-      { key: i, value: team._id },
-      team.name
-    );
-  });
-
-  function clickEvent(e) {
-    props.onEventCallBack({ value: e.target.value });
-  }
-
-  return React.createElement(
-    Input,
-    { type: 'select', color: props.teamColor, onChange: clickEvent },
-    React.createElement(
-      'option',
+      FormFeedback,
       null,
-      '\u6240\u5C5E\u30C1\u30FC\u30E0\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044'
-    ),
-    list
-  );
+      '\u30C1\u30FC\u30E0\u540D: ',
+      props.team.name
+    );
+  } else if (props.color === 'danger') {
+    return React.createElement(
+      FormFeedback,
+      null,
+      '\u8A72\u5F53\u306E\u30C1\u30FC\u30E0\u306F\u767B\u9332\u3055\u308C\u3066\u3044\u307E\u305B\u3093'
+    );
+  } else if (props.color === 'warning') {
+    return React.createElement(
+      FormFeedback,
+      null,
+      '11\u6841\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044'
+    );
+  }
 };
 
 var Register = function (_React$Component) {
@@ -93,7 +91,6 @@ var Register = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
 
     _this.state = {
-      teams: [],
       id: '',
       idUsed: false,
       idColor: '',
@@ -105,7 +102,8 @@ var Register = function (_React$Component) {
       team: '',
       teamColor: 'warning',
       car: '',
-      carColor: 'warning'
+      carColor: 'warning',
+      basketNumber: ''
     };
 
     // handle
@@ -126,18 +124,7 @@ var Register = function (_React$Component) {
 
   _createClass(Register, [{
     key: 'componentDidMount',
-    value: function componentDidMount() {
-      $.ajax({
-        url: 'http://172.16.1.12:3000/api/team/all',
-        type: 'GET',
-        dataType: 'json',
-        data: {}
-      }).then(function (json) {
-        this.setState({ teams: json });
-      }.bind(this), function () {
-        console.log('読み込み失敗');
-      });
-    }
+    value: function componentDidMount() {}
 
     //--------------------------------------------------
     // handleChange
@@ -185,15 +172,36 @@ var Register = function (_React$Component) {
   }, {
     key: 'handleChangeTeam',
     value: function handleChangeTeam(event) {
-      if (event.value === '所属チーム選択してください') {
-        this.setState({
-          team: '',
-          teamColor: 'warning'
+      if (event.target.value.length > 11) {
+        return false;
+      }
+
+      this.setState({
+        basketNumber: event.target.value
+      });
+
+      if (event.target.value.length === 11) {
+        $.ajax({
+          url: 'http://172.16.1.12:3000/api/team/basketnumber/' + event.target.value,
+          type: 'GET',
+          dataType: 'json'
+        }).then(function (json) {
+          if (json.length === 0) {
+            this.setState({
+              teamColor: 'danger'
+            });
+          } else {
+            this.setState({ team: json[0] });
+            this.setState({
+              teamColor: 'success'
+            });
+          }
+        }.bind(this), function () {
+          console.log('読み込み失敗');
         });
       } else {
         this.setState({
-          team: event.value,
-          teamColor: 'success'
+          teamColor: 'warning'
         });
       }
     }
@@ -245,23 +253,28 @@ var Register = function (_React$Component) {
       }
 
       console.log(result);
-      // if(result) {
-      //   $.ajax({
-      //     url: 'http://172.16.1.12:3000/api/user/' + id,
-      //     type: 'POST',
-      //     dataType: 'json',
-      //   }).then(
-      //       function(json) {
-      //         if(json.success) {
-      //           this.setState({idColor: 'danger'});
-      //         } else {
-      //           this.setState({idColor: 'success'});
-      //         }
-      //       }.bind(this),
-      //       function() {
-      //         console.log('読み込み失敗');
-      //       });
-      // }
+
+      if (result) {
+        $.ajax({
+          url: 'http://172.16.1.12:3000/api/user/',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            user_id: this.state.id,
+            name: this.state.name,
+            password: this.state.pass,
+            team_id: this.state.team._id,
+            car: this.state.car
+          }
+        }).then(function (json) {
+          console.log(json);
+          if (json.success) {
+            alert('登録しました');
+          }
+        }, function () {
+          console.log('読み込み失敗');
+        });
+      }
     }
 
     //--------------------------------------------------
@@ -300,7 +313,7 @@ var Register = function (_React$Component) {
       var passEdit = this.state.pass.length > 0 || this.state.passCollation.length > 0 ? false : true;
       return React.createElement(
         'div',
-        null,
+        { style: { marginBottom: '25px' } },
         React.createElement(
           FormGroup,
           { color: this.state.idColor },
@@ -377,7 +390,8 @@ var Register = function (_React$Component) {
               '\u6240\u5C5E\u30C1\u30FC\u30E0'
             )
           ),
-          React.createElement(ListTeam, { teams: this.state.teams, color: this.state.teamColor, onEventCallBack: this.handleChangeTeam })
+          React.createElement(Input, { type: 'number', state: this.state.teamColor, placeholder: '\u756A\u53F7', value: this.state.basketNumber, onChange: this.handleChangeTeam }),
+          React.createElement(TeamErrorMessage, { color: this.state.teamColor, team: this.state.team })
         ),
         React.createElement(
           FormGroup,

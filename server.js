@@ -88,6 +88,12 @@ app.use('/dispatcher', dispatcher);
 const score = require('./app/routes/score');
 app.use('/score', score);
 
+const u = require('./app/routes/user');
+app.use('/user', u);
+
+const t = require('./app/routes/team');
+app.use('/team', t);
+
 //--------------------------------------------------
 // APIルーティング
 //--------------------------------------------------
@@ -134,6 +140,7 @@ apiRoutes.post('/authenticate', function(req, res) {
     req.session.delegate = user.delegate;
     // チームID
     req.session.team_id = user.team_id;
+    req.session.user_id = user._id;
 
     req.session.save();
 
