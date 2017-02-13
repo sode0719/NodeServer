@@ -37,7 +37,7 @@ const BasketNumberErrorMessage = (props) => {
   } else if(props.color === 'danger') {
     return <FormFeedback>該当のチームは既に登録されています</FormFeedback>;
   } else if(props.color === 'warning') {
-    return <FormFeedback>11桁入力してください</FormFeedback>;
+    return <FormFeedback>日本バスケットボール協会登録番号：11桁入力してください</FormFeedback>;
   }
 };
 

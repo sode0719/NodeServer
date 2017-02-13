@@ -3,6 +3,7 @@ const express = require('express');
 const apiRoutes = new express.Router();
 
 const log = require('../../util/logger');
+const fcm = require('../../util/fcm');
 
 // MongoDB
 const User = require('../../models/user');

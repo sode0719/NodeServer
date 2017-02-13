@@ -39,7 +39,8 @@ var Register = function (_React$Component) {
       car: '',
       carCapacity: [],
       carColor: '',
-      children: []
+      children: [],
+      removeChildren: []
     };
 
     // handle
@@ -128,21 +129,32 @@ var Register = function (_React$Component) {
         result = false;
       }
 
+      var children = this.state.children.filter(function (c) {
+        return c.name !== '';
+      });
+
       if (result) {
-        var carCapacity = '';
-        for (var i = 0; i < this.state.carCapacity.length; i++) {
-          carCapacity += this.state.carCapacity[i] + ',';
+        var data = {};
+        if (this.state.removeChildren.length > 0) {
+          data = {
+            name: this.state.name,
+            carCapacity: JSON.stringify(this.state.carCapacity),
+            children: JSON.stringify(children),
+            removeChildren: JSON.stringify(this.state.removeChildren)
+          };
+        } else {
+          data = {
+            name: this.state.name,
+            carCapacity: JSON.stringify(this.state.carCapacity),
+            children: JSON.stringify(children)
+          };
         }
 
         $.ajax({
           url: 'http://172.16.1.12:3000/api/user/' + $('#js-id').text(),
           type: 'PUT',
           dataType: 'json',
-          data: {
-            name: this.state.name,
-            carCapacity: carCapacity,
-            children: JSON.stringify(this.state.children)
-          }
+          data: data
         }).then(function (json) {
           console.log(json);
           if (json.success) {
@@ -172,6 +184,7 @@ var Register = function (_React$Component) {
         alert('削除できません');
         return false;
       }
+
       var temp = this.state.carCapacity;
       temp.splice(num, 1);
       this.setState({
@@ -197,8 +210,13 @@ var Register = function (_React$Component) {
           return c._id !== data.id;
         });
 
+        var remove = this.state.children.filter(function (c) {
+          return c._id.length === 24 && c._id === data.id;
+        });
+
         this.setState({
-          children: _children
+          children: _children,
+          removeChildren: this.state.removeChildren.concat(remove)
         });
       }
     }

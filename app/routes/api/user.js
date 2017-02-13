@@ -142,6 +142,62 @@ apiRoutes.post('/team', function(req, res) {
   });
 });
 
+apiRoutes.put('/:user_id', function(req, res) {
+  User.findOne({_id: ObjectId(req.params.user_id)}, function(err, doc) {
+    doc.name = req.body.name;
+    doc.carCapacity = JSON.parse(req.body.carCapacity);
+
+    doc.save(function(err) {
+      if(err) {
+        throw err;
+      }
+
+      const children = JSON.parse(req.body.children);
+
+      // 新規団員
+      const newChildren = children.filter(function(c) {
+        return c._id.length > 24;
+      });
+      newChildren.map(function(c) {
+        const child = new Children({
+          name: c.name,
+          user_id: req.params.user_id,
+        });
+
+        child.save();
+      });
+
+      // 更新
+      Children.find({user_id: ObjectId(req.params.user_id)}, function(err, oldChildren) {
+        const updateChildren = children.filter(function(c) {
+          return c._id.length === 24;
+        });
+        for(let i = 0; i < oldChildren.length; i++) {
+          for(let j = 0; j < updateChildren.length; j++) {
+            if(oldChildren[i]._id == updateChildren[j]._id) {
+              oldChildren[i].name = updateChildren[j].name;
+              oldChildren[i].save();
+            }
+          }
+        }
+
+        if(req.body.removeChildren) {
+          const removeChildren = JSON.parse(req.body.removeChildren);
+          removeChildren.map(function(c) {
+            Children.remove({_id: ObjectId(c._id)}, function(err) {
+              if(err) {
+                throw err;
+              }
+            });
+          });
+        }
+
+        res.json({success: true});
+      });
+    });
+  });
+});
+
 apiRoutes.put('/fcm/:user_id', function(req, res) {
   User.findOne({_id: ObjectId(req.params.user_id)}, function(err, doc) {
     doc.fcmToken = req.body.fcmToken,
