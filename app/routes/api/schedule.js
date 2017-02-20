@@ -201,7 +201,7 @@ function getDiff(start, end) {
 }
 
 function resistDispatcher(team_id, title, date, destination, schedule_id, aggregate, isUse) {
-  User.find({team_id: team_id}, function(err, users) {
+  User.find({team_id: team_id, isDelete: false}, function(err, users) {
     if(err) {
       throw err;
     }

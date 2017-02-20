@@ -10,4 +10,5 @@ module.exports = mongoose.model('User', new Schema({
   delegate: Boolean,
   fcmToken: String,
   carCapacity: Array,
+  isDelete: Boolean,
 }));

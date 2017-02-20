@@ -32,22 +32,31 @@ apiRoutes.get('/obj/:user_id', function(req, res) {
 });
 
 apiRoutes.delete('/:user_id', function(req, res) {
-  User.remove({_id: req.params.user_id}, function(err) {
+  User.findOne({_id: req.params.user_id}, function(err, doc) {
     if(err) {
       throw err;
     }
-    Children.remove({user_id: req.params.user_id}, function(err) {
+
+    doc.isDelete = true;
+
+    doc.save(function(err) {
       if(err) {
         throw err;
       }
 
-      res.json({success: true});
+      Children.remove({user_id: req.params.user_id}, function(err) {
+        if(err) {
+          throw err;
+        }
+
+        res.json({success: true});
+      });
     });
   });
 });
 
 apiRoutes.get('/check/:user_id', function(req, res) {
-  User.find({id: req.params.user_id}, function(err, user) {
+  User.find({id: req.params.user_id, isDelete: false}, function(err, user) {
     if(err) {
       throw err;
     }
@@ -97,6 +106,7 @@ apiRoutes.post('/', function(req, res) {
     fcmToken: '',
     carCapacity: [req.body.car],
     child: [],
+    isDelete: false,
   });
 
   user.save(function(err) {

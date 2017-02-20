@@ -109,7 +109,7 @@ apiRoutes.use('/team', team);
 apiRoutes.post('/authenticate', function(req, res) {
 
   // find db by posted name
-  User.findOne({id: req.body.id}, function(err, user) {
+  User.findOne({id: req.body.id, isDelete: false}, function(err, user) {
     if(err) {
       throw err;
     }
